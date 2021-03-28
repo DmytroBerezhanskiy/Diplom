@@ -5,6 +5,6 @@
     <h1>{{product.created}}|{{product.updated}}</h1>
     <h1>{{ product.image }}</h1>
     <img src="{{ product.image.url }}">
-    <p>{{product.price | safe}}</p>
+    <p>₴{{product.price | safe}}</p>
 </div>
 {% endblock body %}
