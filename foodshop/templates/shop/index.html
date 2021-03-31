@@ -4,6 +4,19 @@
 </head>
 {% block context %}
 <body>
+<div id="sidebar">
+        <h3>Categories</h3>
+        <ul>
+            <li {% if not category %}class="selected"{% endif %}>
+                <a href="">All</a>
+            </li>
+            {% for c in categories %}
+                <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                    <a href=" ">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 <div class="row">
       {% for product in product_list %}
         <div class="post-item col-12 col-sm-6 col-md-6 col-lg-3 p-2">
