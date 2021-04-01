@@ -13,6 +13,7 @@
     <hr/>
     <img src="{{ product.image.url }}">
     <p class="blog-post-meta text-secondary">Price: {{ product.price }}₴</p>
+    <p>{{ product.description }}</p>
     <p>{{ object.category|safe }}</p>
   </div>
 {% endblock %}

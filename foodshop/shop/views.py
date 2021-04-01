@@ -13,6 +13,18 @@ class ProductListView(ListView):
         context['categories'] = Category.objects.all()
         return context
 
+    def product_list_by_category(request, category_slug=None):
+        category = None
+        categories = Category.objects.all()
+        products = Product.objects.available()
+        if category_slug:
+            category = Category.objects.get(slug=category_slug)
+            products = products.filter(category=category)
+        return render(request, 'shop/index.html',
+                      {'product_list': products,
+                       'category': category,
+                       'categories': categories})
+
 
 class ProductDetailView(DetailView):
     model = Product

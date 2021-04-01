@@ -4,15 +4,46 @@
 </head>
 {% block context %}
 <body>
+<style>
+    #sidebar {
+    width:220px;
+    padding:30px 20px 0 0;
+    float:left;
+    }
+
+    #sidebar ul{
+        margin:0;
+        padding:0;
+    }
+
+    #sidebar ul li {
+        margin:0;
+        list-style:none;
+        padding:10px 14px;
+    }
+
+    #sidebar ul li a {
+        display:block;
+    }
+
+    #sidebar ul li.selected {
+        background:#5993bb;
+        border-radius:4px;
+    }
+
+    #sidebar ul li.selected a {
+        color:#fff;
+    }
+</style>
 <div id="sidebar">
         <h3>Categories</h3>
         <ul>
             <li {% if not category %}class="selected"{% endif %}>
-                <a href="">All</a>
+                <a href="http://127.0.0.1:8000">All</a>
             </li>
             {% for c in categories %}
                 <li {% if category.slug == c.slug %}class="selected"{% endif %}>
-                    <a href=" ">{{ c.name }}</a>
+                    <a href="http://127.0.0.1:8000/{{ c.slug }}/">{{ c.name }}</a>
                 </li>
             {% endfor %}
         </ul>
