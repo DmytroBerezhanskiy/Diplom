@@ -38,11 +38,11 @@
 <div id="sidebar">
         <h3>Categories</h3>
         <ul>
-            <li {% if not category %}class="selected"{% endif %}>
+            <li {% if not category %} class="selected"{% endif %}>
                 <a href="http://127.0.0.1:8000">All</a>
             </li>
             {% for c in categories %}
-                <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                <li {% if category.slug == c.slug %} class="selected"{% endif %}>
                     <a href="http://127.0.0.1:8000/{{ c.slug }}/">{{ c.name }}</a>
                 </li>
             {% endfor %}
@@ -53,9 +53,9 @@
         <div class="post-item col-12 col-sm-6 col-md-6 col-lg-3 p-2">
           <div class="card h-100">
             <div class="card-body">
-              <img src="{{ product.image.url }}">
+              <img src="{{ product.image.url }}" style="width:100%">
               <h2 class="card-title">{{ product.name }}</h2>
-              <p class="text-primary"><i class="far fa-calendar-alt"></i> {{ product.price}}</p>
+              <p class="text-primary"><i class="far fa-calendar-alt"></i>₴{{ product.price}}</p>
               <p  class="card-text">{{product.category|safe | truncatewords:10 }}</p>
               <a href="{% url 'product_detail' product.slug  %}" class="btn btn-outline-primary">Read More</a>
               </div>
