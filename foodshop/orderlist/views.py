@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from .forms import OrderListAddProductForm
-from foodshop.shop.models import Product
 from .orderlist import OrderList
+from ..shop.models import Product
 
 
 @require_POST
