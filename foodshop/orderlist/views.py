@@ -9,7 +9,7 @@ from shop.models import Product
 def orderlist_add(request, product_id):
     orderlist = OrderList(request)
     product = Product.objects.get(id=product_id)
-    form = OrderListAddProductForm(request.Post)
+    form = OrderListAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
         orderlist.add(product=product,
