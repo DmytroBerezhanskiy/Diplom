@@ -39,6 +39,11 @@
     <h1>{{ product.name }}</h1>
     <h2><a href="{% url 'product_list_by_category' product.category|lower %}">{{ product.category }}</a></h2>
     <p class="price">₴{{ product.price }}</p>
+    <form action="{% url 'orderlist:orderlist_add' product.id %}" method="post">
+    {{ orderlist_form }}
+    {% csrf_token %}
+    <input type="submit" value="Add to order list">
+</form>
     {{ product.description|linebreaks}}
   </div>
 {% endblock %}
