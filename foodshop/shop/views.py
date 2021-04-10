@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Product, Category
+from orderlist.forms import OrderListAddProductForm
 
 
 class ProductListView(ListView):
@@ -29,3 +30,10 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'shop/product_detail.html'
+
+    def product_detail(request, id, slug):
+        product = Product.objects.available().get(id=id, slug=slug)
+        orderlist_form = OrderListAddProductForm()
+        return render(request, 'shop/product_detail.html',
+                      {'product': product,
+                       'orderlist_form': orderlist_form})

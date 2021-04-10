@@ -37,8 +37,8 @@
   <div class="product-detail">
     <img src="{{ product.image.url }}">
     <h1>{{ product.name }}</h1>
-    <h2><a>{{ product.category }}</a></h2>
+    <h2><a href="{% url 'product_list_by_category' product.category|lower %}">{{ product.category }}</a></h2>
     <p class="price">₴{{ product.price }}</p>
-    {{ product.description|linebreaks }}
+    {{ product.description|linebreaks}}
   </div>
 {% endblock %}
