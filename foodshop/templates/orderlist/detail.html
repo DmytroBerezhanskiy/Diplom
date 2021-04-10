@@ -1,8 +1,61 @@
-
+{% extends 'shop/base.html' %}
 {% block title %}
     Order list
 {% endblock %}
-{% block content %}
+{% block context %}
+<style>
+    table {
+    width:100%;
+    border-spacing:0;
+    border-collapse: collapse;
+    }
+
+    table th, table td {
+        text-align:left;
+        font-size:14px;
+        padding:10px;
+        margin:0;
+    }
+
+    tbody tr:nth-child(odd) {
+        background:#efefef;
+    }
+
+    thead th, tbody tr.total-sum {
+        background:#5993bb;
+        color:#fff;
+        font-weight:bold;
+    }
+
+    table.order-list {
+        margin-bottom:40px;
+    }
+
+    table.order-list img {
+        width:180px;
+    }
+
+    tbody td.num {
+        text-align:right;
+    }
+    a.button{
+    color:#fff;
+    background:#5993bb;
+    border-radius:4px;
+    padding:10px 20px;
+    font-size:14px;
+    border:0;
+    }
+
+    a.button.light {
+    color:#666;
+    background:#ededed;
+    }
+
+    .text-right {
+        text-align:right;
+    }
+</style>
     <h1>Your order list contains</h1>
     <table class="order-list">
         <thead>
@@ -25,22 +78,22 @@
                         </a>
                     </td>
                     <td>{{ product.name }}</td>
-                    <td class="num">${{ item.price }}</td>
+                    <td class="num">₴{{ item.price }}</td>
                     <td>{{ item.quantity }}</td>
-                    <td class="num">${{ item.total_price }}</td>
+                    <td class="num">₴{{ item.total_price }}</td>
                     <td><a href="{% url 'orderlist:orderlist_delete' product.id%}">Delete</a></td>
                 </tr>
             {% endwith %}
         {% endfor %}
-        <tr class="total sum">
+        <tr class="total-sum">
             <td>Total sum</td>
             <td colspan="4"></td>
-            <td class="num">${{ orderlist.get_total_price }}</td>
+            <td class="num">₴{{ orderlist.get_total_price }}</td>
         </tr>
         </tbody>
     </table>
     <p class="text-right">
-        <a href="{% url 'shop:product_list' %}" class="button light">Continue shopping</a>
+        <a href="{% url 'product_list' %}" class="button light">Continue shopping</a>
         <a href="#" class="button">Checkout</a>
     </p>
 {% endblock %}
