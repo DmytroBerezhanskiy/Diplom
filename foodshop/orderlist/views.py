@@ -18,13 +18,13 @@ def orderlist_add(request, product_id):
     return redirect('orderlist:orderlist_detail')
 
 
-def orderlist_remove(request, product_id):
+def orderlist_delete(request, product_id):
     ordelist = OrderList(request)
     product = Product.objects.get(id=product_id)
-    ordelist.remove(product)
+    ordelist.delete(product)
     return redirect('orderlist:orderlist-detail')
 
 
 def orderlist_detail(request):
     orderlist = OrderList(request)
-    return render(request, 'orderlist/orderlist-detail.html', {'orderlist': orderlist})
+    return render(request, 'orderlist/detail.html', {'orderlist': orderlist})

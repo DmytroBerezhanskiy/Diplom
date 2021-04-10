@@ -39,11 +39,11 @@
         <h3>Categories</h3>
         <ul>
             <li {% if not category %} class="selected"{% endif %}>
-                <a href="http://127.0.0.1:8000">All</a>
+                <a href="{% url 'product_list' %}">All</a>
             </li>
             {% for c in categories %}
                 <li {% if category.slug == c.slug %} class="selected"{% endif %}>
-                    <a href="http://127.0.0.1:8000/{{ c.slug }}/">{{ c.name }}</a>
+                    <a href="{% url 'product_list_by_category' c.slug%}">{{ c.name }}</a>
                 </li>
             {% endfor %}
         </ul>

@@ -1,0 +1,46 @@
+
+{% block title %}
+    Order list
+{% endblock %}
+{% block content %}
+    <h1>Your order list contains</h1>
+    <table class="order-list">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Unit price</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in orderlist %}
+            {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="{% url 'product_detail' product.slug  %}">
+                            <img src="{{ product.image.url }}">
+                        </a>
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td class="num">${{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td class="num">${{ item.total_price }}</td>
+                    <td><a href="{% url 'orderlist:orderlist_delete' product.id%}">Delete</a></td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total sum">
+            <td>Total sum</td>
+            <td colspan="4"></td>
+            <td class="num">${{ orderlist.get_total_price }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url 'shop:product_list' %}" class="button light">Continue shopping</a>
+        <a href="#" class="button">Checkout</a>
+    </p>
+{% endblock %}

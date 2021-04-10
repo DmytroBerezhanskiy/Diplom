@@ -26,7 +26,7 @@ class OrderList(object):
         self.session[settings.ORDERLIST_SESSION_ID] = self.orderlist
         self.session.modified = True
 
-    def remove(self, product):
+    def delete(self, product):
         product_id = str(product.id)
         if product_id in self.orderlist:
             del self.orderlist[product_id]
