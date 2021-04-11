@@ -1,6 +1,6 @@
 from django import forms
 
-PRODUCT_COUNT_CHOICES = [(i, str(i)) for i in range(1, 101)]
+PRODUCT_COUNT_CHOICES = [(i, str(i)) for i in range(1, 21)]
 
 
 class OrderListAddProductForm(forms.Form):

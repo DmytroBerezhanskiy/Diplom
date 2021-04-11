@@ -22,7 +22,7 @@ def orderlist_delete(request, product_id):
     ordelist = OrderList(request)
     product = Product.objects.get(id=product_id)
     ordelist.delete(product)
-    return redirect('orderlist:orderlist-detail')
+    return redirect('orderlist:orderlist_detail')
 
 
 def orderlist_detail(request):
