@@ -32,7 +32,7 @@
       <div class="order-list">
           {% with total_items=orderlist|length %}
             {% if orderlist|length > 0 %}
-                Your order list:
+                Your order list contains:
                 <a href="{% url 'orderlist:orderlist_detail' %}">
                     {{ total_items }} item{{ total_items|pluralize }},
                     ₴{{ orderlist.get_total_price }}
