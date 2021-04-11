@@ -36,7 +36,8 @@
     }
 
     tbody td.num {
-        text-align:right;
+        text-align:left;
+        color:black;
     }
     a.button{
     color:#fff;
@@ -79,7 +80,7 @@
                     </td>
                     <td>{{ product.name }}</td>
                     <td class="num">₴{{ item.price }}</td>
-                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.count }}</td>
                     <td class="num">₴{{ item.total_price }}</td>
                     <td><a href="{% url 'orderlist:orderlist_delete' product.id%}">Delete</a></td>
                 </tr>
