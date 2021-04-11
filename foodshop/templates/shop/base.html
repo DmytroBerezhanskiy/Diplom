@@ -30,7 +30,17 @@
       </li>
     </ul>
       <div class="order-list">
-          Your order list is empty.
+          {% with total_items=orderlist|length %}
+            {% if orderlist|length > 0 %}
+                Your order list:
+                <a href="{% url 'orderlist:orderlist_detail' %}">
+                    {{ total_items }} item{{ total_items|pluralize }},
+                    ₴{{ orderlist.get_total_price }}
+                </a>
+            {% else %}
+                Your order list is empty.
+            {% endif %}
+        {% endwith %}
       </div>
   </div>
 </nav>
