@@ -125,3 +125,9 @@ ORDERLIST_SESSION_ID = 'orderlist'
 LOGIN_REDIRECT_URL = 'product_list'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dontznayu@gmail.com'
+EMAIL_HOST_PASSWORD = '123654789Dont'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
