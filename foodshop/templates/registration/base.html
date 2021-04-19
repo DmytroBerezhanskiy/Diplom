@@ -11,20 +11,6 @@
     <style>
     html { overflow-x:  hidden; }
     .order-list { color: white; }
-
-    #subheader {
-    background:#ececec;
-    color:#444;
-    padding:15px 100px;
-    overflow:auto;
-    }
-
-    #subheader .order-list {
-    float:right;
-    color:black;
-    padding-top:4px;
-    margin-right: -75px;
-    }
   </style>
 </head>
 <body>
@@ -45,21 +31,6 @@
     </ul>
   </div>
 </nav>
-<div id="subheader">
- <div class="order-list">
-          {% with total_items=orderlist|length %}
-            {% if orderlist|length > 0 %}
-                Your order list contains:
-                <a href="{% url 'orderlist:orderlist_detail' %}">
-                    {{ total_items }} item{{ total_items|pluralize }},
-                    ₴{{ orderlist.get_total_price }}
-                </a>
-            {% else %}
-                Your order list is empty.
-            {% endif %}
-        {% endwith %}
-      </div>
- </div>
 {% block context %}
 {% endblock context %}
 {% load static %}

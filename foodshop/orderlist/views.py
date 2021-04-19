@@ -27,4 +27,8 @@ def orderlist_delete(request, product_id):
 
 def orderlist_detail(request):
     orderlist = OrderList(request)
+    for item in orderlist:
+        item['update_count'] = OrderListAddProductForm(
+                            initial={'count': item['count'],
+                                     'update': True})
     return render(request, 'orderlist/detail.html', {'orderlist': orderlist})

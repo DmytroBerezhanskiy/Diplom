@@ -47,7 +47,7 @@
     tbody td.num {
         text-align:left;
     }
-    a.button{
+    a.button, input[type="submit"]{
     color:#fff;
     background:#5993bb;
     border-radius:4px;
@@ -88,7 +88,14 @@
                     </td>
                     <td>{{ product.name }}</td>
                     <td class="num">₴{{ item.price }}</td>
-                    <td>{{ item.count }}</td>
+                    <td>
+                        <form action="{% url 'orderlist:orderlist_add' product.id %}" method="post">
+                            {{ item.update_count.count }}
+                            {{ item.update_count.update }}
+                            <input type="submit" value="Update">
+                            {% csrf_token %}
+                        </form>
+                    </td>
                     <td class="num">₴{{ item.total_price }}</td>
                     <td><a href="{% url 'orderlist:orderlist_delete' product.id%}">Delete</a></td>
                 </tr>
