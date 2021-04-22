@@ -13,8 +13,8 @@ def register(request):
         if register_form.is_valid():
             new_user = register_form.save(commit=False)
             new_user.set_password(register_form.cleaned_data['password'])
-            UserProfile.objects.create(user=new_user)
             new_user.save()
+            UserProfile.objects.create(user=new_user)
             return render(request, 'registration/register_done.html', {'new_user': new_user})
     else:
         register_form = RegistrationForm()
