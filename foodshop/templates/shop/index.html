@@ -42,14 +42,14 @@
     }
 </style>
 <div id="sidebar">
-        <h3>Categories</h3>
+        <h3>Shops</h3>
         <ul>
-            <li {% if not category %} class="selected"{% endif %}>
+            <li {% if not shop %} class="selected"{% endif %}>
                 <a href="{% url 'product_list' %}">All</a>
             </li>
-            {% for c in categories %}
-                <li {% if category.slug == c.slug %} class="selected"{% endif %}>
-                    <a href="{% url 'product_list_by_category' c.slug%}">{{ c.name }}</a>
+            {% for c in shops %}
+                <li {% if shop.slug == c.slug %} class="selected"{% endif %}>
+                    <a href="{% url 'product_list_by_shop' c.slug%}">{{ c.name }}</a>
                 </li>
             {% endfor %}
         </ul>

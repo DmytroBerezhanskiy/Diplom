@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import Product, Category
+from .models import Product, Category, Shop
 from orderlist.forms import OrderListAddProductForm
 
 
@@ -14,17 +14,23 @@ from orderlist.forms import OrderListAddProductForm
 #         context['categories'] = Category.objects.all()
 #         return context
 
-def product_list(request, category_slug=None):
-    category = None
-    categories = Category.objects.all()
+def product_list(request, shop_slug=None):
+    shop = None
+    shops = Shop.objects.all()
+    # category = None
+    # categories = Category.objects.all()
     products = Product.objects.available()
-    if category_slug:
-        category = Category.objects.get(slug=category_slug)
-        products = products.filter(category=category)
+    if shop_slug:
+        # category = Category.objects.get(slug=category_slug)
+        # products = products.filter(category=category)
+        shop = Shop.objects.get(slug=shop_slug)
+        products = products.filter(shop=shop)
     return render(request, 'shop/index.html',
                   {'product_list': products,
-                   'category': category,
-                   'categories': categories})
+                   # 'category': category,
+                   # 'categories': categories,
+                   'shop': shop,
+                   'shops': shops,})
 
     # class ProductDetailView(DetailView):
     #     model = Product

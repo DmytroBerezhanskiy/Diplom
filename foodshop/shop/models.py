@@ -2,6 +2,18 @@ from django.db import models
 from django.urls import reverse
 
 
+class Shop(models.Model):
+    name = models.CharField(max_length=150, db_index=True)
+    slug = models.SlugField(max_length=150, db_index=True, unique=True)
+
+    class Meta:
+        ordering = ('name',)
+        default_related_name = "shop"
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(max_length=150, db_index=True, unique=True)
@@ -30,6 +42,7 @@ class ProductManager(models.Manager):
 
 
 class Product(models.Model):
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(max_length=150, db_index=True)
