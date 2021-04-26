@@ -14,27 +14,26 @@ from orderlist.forms import OrderListAddProductForm
 #         context['categories'] = Category.objects.all()
 #         return context
 
-def product_list(request, shop_slug=None):
+def product_list(request, shop_slug=None, category_slug=None):
     shop = None
     shops = Shop.objects.all()
-    # category = None
-    # categories = Category.objects.all()
+    category = None
+    categories = Category.objects.all()
     products = Product.objects.available()
     if shop_slug:
         # category = Category.objects.get(slug=category_slug)
         # products = products.filter(category=category)
         shop = Shop.objects.get(slug=shop_slug)
         products = products.filter(shop=shop)
+    if category_slug:
+        category = Category.objects.get(slug=category_slug)
+        products = products.filter(category=category)
     return render(request, 'shop/index.html',
                   {'product_list': products,
-                   # 'category': category,
-                   # 'categories': categories,
+                   'category': category,
+                   'categories': categories,
                    'shop': shop,
-                   'shops': shops,})
-
-    # class ProductDetailView(DetailView):
-    #     model = Product
-    #     template_name = 'shop/product_detail.html'
+                   'shops': shops})
 
 
 def product_detail(request, id, slug):

@@ -64,5 +64,11 @@ class Product(models.Model):
         return reverse('product_detail',
                        args=[self.id, self.slug])
 
+    def get_shop_slug(self):
+        shop = Shop.objects.get(name=self.shop)
+        shop = shop.slug
+        return reverse('product_list_by_shop',
+                       args=[shop])
+
     def __str__(self):
         return self.name
