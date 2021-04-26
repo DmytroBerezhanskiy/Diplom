@@ -3,16 +3,18 @@ from shop.models import Product
 
 
 class Order(models.Model):
-    name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
     address = models.CharField(max_length=100)
+    telephone = models.CharField(max_length=12)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-created',)
-        default_related_name = "order"
+        default_related_name = "orders"
 
     def __str__(self):
         return 'Order {}'.format(self.id)

@@ -62,7 +62,8 @@
               <img src="{{ product.image.url }}" style="width:100%; height:100%">
               <h2 class="card-title">{{ product.name }}</h2>
               <p class="text-primary"><i class="far fa-calendar-alt"></i>₴{{ product.price}}</p>
-              <p  class="card-text">{{product.category|safe | truncatewords:10 }}</p>
+              <p class="card-text">{{product.category|safe | truncatewords:10 }}</p>
+              <p class="card-text">{{product.shop|safe | truncatewords:10 }}</p>
               <a href="{{ product.get_absolute_url }}" style="width:40%" class="btn btn-outline-primary">Read More</a>
               </div>
           </div>
