@@ -1,70 +1,9 @@
 {% extends 'shop/base.html' %}
+{% load static %}
 {% block title %}
     Order list
 {% endblock %}
 {% block context %}
-<style>
-    table {
-    width:100%;
-    border-spacing:0;
-    border-collapse: collapse;
-    }
-
-    table th, table td {
-        text-align:left;
-        font-size:14px;
-        padding:10px;
-        margin:0;
-        color:black;
-    }
-
-    .total-sum td {
-        color:white;
-        }
-
-    .total-sum .num {
-        text-align:right;
-    }
-
-    tbody tr:nth-child(odd) {
-        background:#efefef;
-    }
-
-    thead th, tbody tr.total-sum {
-        background:#5993bb;
-        color:white;
-        font-weight:bold;
-    }
-
-    table.order-list {
-        margin-bottom:40px;
-    }
-
-    table.order-list img {
-        width:180px;
-    }
-
-    tbody td.num {
-        text-align:left;
-    }
-    a.button, input[type="submit"]{
-    color:#fff;
-    background:#5993bb;
-    border-radius:4px;
-    padding:10px 20px;
-    font-size:14px;
-    border:0;
-    }
-
-    a.button.light {
-    color:#666;
-    background:#ededed;
-    }
-
-    .text-right {
-        text-align:right;
-    }
-</style>
     <h1>Your order list contains</h1>
     <table class="order-list">
         <thead>

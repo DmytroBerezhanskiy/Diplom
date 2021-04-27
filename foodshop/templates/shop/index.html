@@ -1,46 +1,11 @@
 {% extends 'shop/base.html' %}
+{% load static %}
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/base.css' %}">
 </head>
 {% block context %}
 <body>
-<style>
-    #sidebar {
-        width:220px;
-        padding:30px 20px 0 0;
-        float:left;
-    }
-
-    #sidebar ul{
-        margin:0;
-        padding:0;
-    }
-
-    #sidebar ul li {
-        margin:0;
-        list-style:none;
-        padding:10px 14px;
-    }
-
-    #sidebar ul li a {
-        display:block;
-    }
-
-    #sidebar ul li.selected {
-        background:#5993bb;
-        border-radius:4px;
-    }
-
-    #sidebar ul li.selected a {
-        color:#fff;
-    }
-
-    .card-flex {
-        display:flex;
-        flex-direction:column;
-        justify-content:space-between;
-    }
-</style>
 <div id="sidebar">
         <h3>Shops</h3>
         <ul>

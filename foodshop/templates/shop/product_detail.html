@@ -8,41 +8,6 @@
 {% endblock %}
 
 {% block context %}
-<style>
-  .product-detail {
-    text-align:justify;
-  }
-
-  .product-detail .price {
-      color:#333;
-      font-size:28px;
-      font-weight:bold;
-  }
-
-  .product-detail img {
-      width:30%;
-      float:left;
-      padding:0 20px 20px 0;
-  }
-
-  .product-detail h1 {
-      margin-bottom:0;
-  }
-
-  .product-detail h2 {
-      margin-top:10px;
-  }
-
-  input[type="submit"] {
-    color:#fff;
-    background:#5993bb;
-    border-radius:4px;
-    padding:10px 20px;
-    font-size:14px;
-    border:0;
-}
-
-</style>
   <div class="product-detail">
     <img src="{{ product.image.url }}">
     <h1>{{ product.name }}</h1>

@@ -1,0 +1,150 @@
+    html { overflow-x:  hidden; }
+    .order-list { color: white; }
+
+    #subheader {
+    background:#ececec;
+    color:#444;
+    padding:15px 100px;
+    overflow:auto;
+    }
+
+    #subheader .order-list {
+    float:right;
+    color:black;
+    padding-top:4px;
+    margin-right: -75px;
+    }
+
+    .user{
+    color:white;
+    }
+
+    #sidebar {
+        width:220px;
+        padding:30px 20px 0 0;
+        float:left;
+    }
+
+    #sidebar ul{
+        margin:0;
+        padding:0;
+    }
+
+    #sidebar ul li {
+        margin:0;
+        list-style:none;
+        padding:10px 14px;
+    }
+
+    #sidebar ul li a {
+        display:block;
+    }
+
+    #sidebar ul li.selected {
+        background:#5993bb;
+        border-radius:4px;
+    }
+
+    #sidebar ul li.selected a {
+        color:#fff;
+    }
+
+    .card-flex {
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+    }
+
+      .product-detail {
+    text-align:justify;
+  }
+
+  .product-detail .price {
+      color:#333;
+      font-size:28px;
+      font-weight:bold;
+  }
+
+  .product-detail img {
+      width:30%;
+      float:left;
+      padding:0 20px 20px 0;
+  }
+
+  .product-detail h1 {
+      margin-bottom:0;
+  }
+
+  .product-detail h2 {
+      margin-top:10px;
+  }
+
+  input[type="submit"] {
+    color:#fff;
+    background:#5993bb;
+    border-radius:4px;
+    padding:10px 20px;
+    font-size:14px;
+    border:0;
+    }
+
+   table {
+    width:100%;
+    border-spacing:0;
+    border-collapse: collapse;
+    }
+
+    table th, table td {
+        text-align:left;
+        font-size:14px;
+        padding:10px;
+        margin:0;
+        color:black;
+    }
+
+    .total-sum td {
+        color:white;
+        }
+
+    .total-sum .num {
+        text-align:right;
+    }
+
+    tbody tr:nth-child(odd) {
+        background:#efefef;
+    }
+
+    thead th, tbody tr.total-sum {
+        background:#5993bb;
+        color:white;
+        font-weight:bold;
+    }
+
+    table.order-list {
+        margin-bottom:40px;
+    }
+
+    table.order-list img {
+        width:180px;
+    }
+
+    tbody td.num {
+        text-align:left;
+    }
+    a.button, input[type="submit"]{
+    color:#fff;
+    background:#5993bb;
+    border-radius:4px;
+    padding:10px 20px;
+    font-size:14px;
+    border:0;
+    }
+
+    a.button.light {
+    color:#666;
+    background:#ededed;
+    }
+
+    .text-right {
+        text-align:right;
+    }
