@@ -33,6 +33,6 @@ def edit(request):
         else:
             messages.error(request, 'Something\'s going wrong')
     else:
-        user_form = UserEditForm()
-        profile_form = ProfileEditForm()
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.userprofile)
     return render(request, 'registration/edit.html', {'user_form': user_form, 'profile_form': profile_form})
