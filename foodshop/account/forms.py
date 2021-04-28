@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import UserProfile
+from shop.models import Product
 
 
 class LoginForm(forms.Form):
@@ -33,3 +34,9 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('telephone', 'address', 'birthday')
+
+
+class CreateProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['shop', 'category', 'name', 'price', 'image', 'description', 'available']

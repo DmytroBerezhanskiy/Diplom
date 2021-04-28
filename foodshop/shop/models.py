@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 
 
@@ -54,6 +55,10 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     objects = ProductManager()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ('name',)

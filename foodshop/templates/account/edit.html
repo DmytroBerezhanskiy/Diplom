@@ -1,4 +1,4 @@
-{% extends "registration/base.html" %}
+{% extends "account/base.html" %}
 {% block title %}Edit your account{% endblock %}
 {% block context %}
  <h1>Edit your account</h1>
@@ -9,5 +9,6 @@
  {% csrf_token %}
  <p><input type="submit" value="Save changes"></p>
  </form>
+<p><a href="{% url 'create_product' %}">Create product</a></p>
 <a href="{% url 'password_change' %}">Change the password</a>
 {% endblock %}
