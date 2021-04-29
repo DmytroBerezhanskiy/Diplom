@@ -62,3 +62,13 @@ def updateProduct(request, id, slug):
             return redirect('/')
     context = {"form": form}
     return render(request, 'registration/CRUD/update_product.html', context)
+
+
+@login_required
+def deleteProduct(request, id, slug):
+    product = Product.objects.get(id=id, slug=slug)
+    if request.method == "POST":
+        product.delete()
+        return redirect('/')
+    context = {"product": product}
+    return render(request, 'registration/CRUD/delete_product.html', context)
