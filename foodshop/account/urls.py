@@ -20,4 +20,5 @@ urlpatterns = [
     path('edit/', views.edit, name='edit'),
 
     path('create_product', views.createProduct, name='create_product'),
+    path('update_product/<int:id>/<slug:slug>/', views.updateProduct, name='update_product'),
 ]

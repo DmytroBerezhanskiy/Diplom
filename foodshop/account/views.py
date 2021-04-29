@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from .forms import RegistrationForm, UserEditForm, ProfileEditForm, CreateProductForm
 from .models import UserProfile
+from shop.models import Product
 
 
 def register(request):
@@ -48,3 +49,16 @@ def createProduct(request):
             return redirect('/')
     context = {'form': form}
     return render(request, 'account/create_product.html', context)
+
+
+@login_required
+def updateProduct(request, id, slug):
+    product = Product.objects.get(id=id, slug=slug)
+    form = CreateProductForm(instance=product)
+    if request.method == 'POST':
+        form = CreateProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {"form": form}
+    return render(request, 'account/update_product.html', context)

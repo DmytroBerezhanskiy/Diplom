@@ -1,13 +1,13 @@
 {% extends 'account/base.html' %}
 {% load static %}
-{% block title %} Create product {% endblock %}
+{% block title %} Update product {% endblock %}
 {% block context %}
 
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
 
-    <p><input type="submit" value="Create"></p>
+    <p><input type="submit" value="Update"></p>
 </form>
 
 {% endblock %}

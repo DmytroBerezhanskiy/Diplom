@@ -31,6 +31,7 @@
               <p class="card-text"><a href="{{ product.get_shop_slug }}">
                   {{product.shop|safe | truncatewords:10 }}</a></p>
               <a href="{{ product.get_absolute_url }}" style="width:40%" class="btn btn-outline-primary">Read More</a>
+                <a href="{% url 'update_product' product.id product.slug %}" style="width:40%" class="btn btn-outline-primary">Update</a>
               </div>
           </div>
         </div>
