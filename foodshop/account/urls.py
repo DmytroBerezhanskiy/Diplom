@@ -17,9 +17,10 @@ urlpatterns = [
 
     path('', include('django.contrib.auth.urls')),
     path('register/', views.register, name='register'),
+    # path('register/<slug:type_group>/', views.register, name='register_entrepreneur'),
     path('edit/', views.edit, name='edit'),
 
-    path('create_product', views.createProduct, name='create_product'),
+    path('create_product/', views.createProduct, name='create_product'),
     path('update_product/<int:id>/<slug:slug>/', views.updateProduct, name='update_product'),
     path('delete_product/<int:id>/<slug:slug>/', views.deleteProduct, name='delete_product'),
 ]

@@ -1,25 +1,31 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-from .forms import RegistrationForm, UserEditForm, ProfileEditForm, CreateProductForm
+from .forms import RegistrationForm, UserEditForm, ProfileEditForm, CreateProductForm, LoginForm
 from .models import UserProfile
 from shop.models import Product
 
 
 def register(request):
-    if request.method == 'POST':
-        register_form = RegistrationForm(request.POST)
-        if register_form.is_valid():
-            new_user = register_form.save(commit=False)
-            new_user.set_password(register_form.cleaned_data['password'])
-            new_user.save()
-            UserProfile.objects.create(user=new_user)
-            return render(request, 'registration/register_done.html', {'new_user': new_user})
+    if request.user.is_authenticated:
+        return redirect('product_list')
     else:
-        register_form = RegistrationForm()
-    return render(request, 'registration/register.html', {'register_form': register_form})
+        if request.method == 'POST':
+            register_form = RegistrationForm(request.POST)
+            if register_form.is_valid():
+                new_user = register_form.save(commit=False)
+                new_user.set_password(register_form.cleaned_data['password'])
+                new_user.save()
+                UserProfile.objects.create(user=new_user)
+                group = Group.objects.get(name=register_form.cleaned_data['register_like'])
+                new_user.groups.add(group)
+                return render(request, 'registration/register_done.html', {'new_user': new_user})
+        else:
+            register_form = RegistrationForm()
+        return render(request, 'registration/register.html', {'register_form': register_form})
 
 
 @login_required

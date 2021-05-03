@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from .models import UserProfile
 from shop.models import Product
 
+TYPE_REGISTER = [
+    ('customer', 'Customer'),
+    ('entrepreneur', 'Entrepreneur'),
+]
+
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -12,6 +17,7 @@ class LoginForm(forms.Form):
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
     password_repeat = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
+    register_like = forms.CharField(label='Register as:', required=True, widget=forms.RadioSelect(choices=TYPE_REGISTER))
 
     class Meta:
         model = User
