@@ -2,6 +2,7 @@ from django.urls import path, include
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from.decorators import unauthenticated_user
 
 urlpatterns = [
     # path('login/', auth_views.LoginView.as_view(), name='login'),
@@ -15,9 +16,9 @@ urlpatterns = [
     # path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     # path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
+    path('login/', unauthenticated_user(auth_views.LoginView.as_view()), name='login'),
     path('', include('django.contrib.auth.urls')),
     path('register/', views.register, name='register'),
-    # path('register/<slug:type_group>/', views.register, name='register_entrepreneur'),
     path('edit/', views.edit, name='edit'),
 
     path('create_product/', views.createProduct, name='create_product'),

@@ -7,25 +7,24 @@ from django.contrib.auth import authenticate, login
 from .forms import RegistrationForm, UserEditForm, ProfileEditForm, CreateProductForm, LoginForm
 from .models import UserProfile
 from shop.models import Product
+from .decorators import unauthenticated_user, entrepreneur_only
 
 
+@unauthenticated_user
 def register(request):
-    if request.user.is_authenticated:
-        return redirect('product_list')
+    if request.method == 'POST':
+        register_form = RegistrationForm(request.POST)
+        if register_form.is_valid():
+            new_user = register_form.save(commit=False)
+            new_user.set_password(register_form.cleaned_data['password'])
+            new_user.save()
+            UserProfile.objects.create(user=new_user)
+            group = Group.objects.get(name=register_form.cleaned_data['register_like'])
+            new_user.groups.add(group)
+            return render(request, 'registration/register_done.html', {'new_user': new_user})
     else:
-        if request.method == 'POST':
-            register_form = RegistrationForm(request.POST)
-            if register_form.is_valid():
-                new_user = register_form.save(commit=False)
-                new_user.set_password(register_form.cleaned_data['password'])
-                new_user.save()
-                UserProfile.objects.create(user=new_user)
-                group = Group.objects.get(name=register_form.cleaned_data['register_like'])
-                new_user.groups.add(group)
-                return render(request, 'registration/register_done.html', {'new_user': new_user})
-        else:
-            register_form = RegistrationForm()
-        return render(request, 'registration/register.html', {'register_form': register_form})
+        register_form = RegistrationForm()
+    return render(request, 'registration/register.html', {'register_form': register_form})
 
 
 @login_required
@@ -46,6 +45,7 @@ def edit(request):
 
 
 @login_required
+@entrepreneur_only
 def createProduct(request):
     form = CreateProductForm()
     if request.method == "POST":
@@ -58,6 +58,7 @@ def createProduct(request):
 
 
 @login_required
+@entrepreneur_only
 def updateProduct(request, id, slug):
     product = Product.objects.get(id=id, slug=slug)
     form = CreateProductForm(instance=product)
@@ -71,6 +72,7 @@ def updateProduct(request, id, slug):
 
 
 @login_required
+@entrepreneur_only
 def deleteProduct(request, id, slug):
     product = Product.objects.get(id=id, slug=slug)
     if request.method == "POST":
