@@ -1,4 +1,4 @@
-    html { overflow-x:  hidden; }
+ html { overflow-x:  hidden; }
     .order-list { color: white; }
 
     #subheader {
@@ -41,7 +41,8 @@
     }
 
     #sidebar ul li.selected {
-        background:#5993bb;
+        background: rgb(45,39,145);
+        background: linear-gradient(90deg, rgba(45,39,145,1) 0%, rgba(65,95,214,1) 50%, rgba(79,181,201,1) 100%);
         border-radius:4px;
     }
 
@@ -54,6 +55,12 @@
         flex-direction:column;
         justify-content:space-between;
     }
+
+    .card-product {
+        box-shadow: 0px 4px 10px 1.7px rgb(34 60 80 / 20%);
+    }
+
+    .card-product:hover { transform:scale(1.05); }
 
       .product-detail {
     text-align:justify;
@@ -115,7 +122,7 @@
     }
 
     thead th, tbody tr.total-sum {
-        background:#5993bb;
+        background:#343a40;
         color:white;
         font-weight:bold;
     }

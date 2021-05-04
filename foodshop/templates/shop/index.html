@@ -3,11 +3,10 @@
 {% load custom_tags %}
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static '/css/base.css' %}">
 </head>
 {% block context %}
 <body>
-<div class="splide">
+<div class="splide mb-3">
         <div class="splide__track">
             <ul class="splide__list">
                 {% for c in categories %}
@@ -17,7 +16,7 @@
         </div>
     </div>
 <div id="sidebar">
-        <h3>Shops</h3>
+        <h3>Restaurants</h3>
         <ul>
             <li {% if not shop %} class="selected"{% endif %}>
                 <a href="{% url 'product_list' %}">All</a>
@@ -32,7 +31,7 @@
 <div class="row">
       {% for product in product_list %}
         <div class="post-item col-12 col-sm-6 col-md-6 col-lg-3 p-2">
-          <div class="card h-100">
+          <div class="card h-100 card-product">
             <div class="card-body card-flex">
               <img src="{{ product.image.url }}" style="width:100%; height:100%">
               <h2 class="card-title">{{ product.name }}</h2>
