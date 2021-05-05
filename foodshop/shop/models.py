@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
@@ -6,10 +7,15 @@ from django.urls import reverse
 class Shop(models.Model):
     name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(max_length=150, db_index=True, unique=True)
+    # owner = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('name',)
         default_related_name = "shop"
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Shop, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

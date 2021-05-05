@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import UserProfile
-from shop.models import Product
+from shop.models import Product, Shop
 
 TYPE_REGISTER = [
     ('customer', 'Customer'),
@@ -12,6 +12,12 @@ TYPE_REGISTER = [
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class ShopRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Shop
+        fields = ['name']
 
 
 class RegistrationForm(forms.ModelForm):
