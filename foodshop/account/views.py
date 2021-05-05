@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from .forms import RegistrationForm, UserEditForm, ProfileEditForm, CreateProductForm, LoginForm, ShopRegistrationForm
 from .models import UserProfile
-from shop.models import Product
+from shop.models import Product, Shop
 from .decorators import unauthenticated_user, entrepreneur_only
 
 
@@ -15,12 +15,14 @@ def register(request):
     if request.method == 'POST':
         register_form = RegistrationForm(request.POST)
         shop_form = ShopRegistrationForm(request.POST)
-        if register_form.is_valid() and shop_form.is_valid():
+        if register_form.is_valid():
             new_user = register_form.save(commit=False)
-            new_shop = shop_form.save(commit=False)
             new_user.set_password(register_form.cleaned_data['password'])
             new_user.save()
-            new_shop.save()
+            if shop_form.is_valid():
+                if shop_form.cleaned_data['name']:
+                    new_shop = shop_form.save(commit=False)
+                    Shop.objects.create(owner=new_user, name=new_shop)
             UserProfile.objects.create(user=new_user)
             group = Group.objects.get(name=register_form.cleaned_data['register_like'])
             new_user.groups.add(group)

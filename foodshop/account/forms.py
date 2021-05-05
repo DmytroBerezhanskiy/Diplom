@@ -18,6 +18,13 @@ class ShopRegistrationForm(forms.ModelForm):
     class Meta:
         model = Shop
         fields = ['name']
+        labels = {
+            "name": "Restaurant name"
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ShopRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['name'].required = False
 
 
 class RegistrationForm(forms.ModelForm):
