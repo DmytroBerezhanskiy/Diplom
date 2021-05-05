@@ -19,6 +19,8 @@
     {% csrf_token %}
     <input type="submit" value="Add to order list">
 </form>
-    {{ product.description|linebreaks}}
+      <div class="product-description" style="word-wrap: break-word">
+          {{ product.description}}
+      </div>
   </div>
 {% endblock %}

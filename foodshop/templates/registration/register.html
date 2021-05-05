@@ -6,6 +6,16 @@
 <form action="." method="post">
     {{ register_form.as_p }}
     {% csrf_token %}
-    <p><input type="submit" value="Create account"></p>
+    <input type="text" id="random">
+    <p><input type="submit" id="register-button" value="Create account"></p>
 </form>
 {% endblock %}
+
+{#<script>#}
+{#    let entrepreneur = document.getElementById("id_register_like_1")#}
+{#    let element = document.getElementById("random")#}
+{#    element.classList.add("test");#}
+{#    entrepreneur.addEventListener("click", function (){#}
+{##}
+{#    })#}
+{#</script>#}

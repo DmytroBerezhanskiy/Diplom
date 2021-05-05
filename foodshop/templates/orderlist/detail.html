@@ -31,12 +31,12 @@
                         <form action="{% url 'orderlist:orderlist_add' product.id %}" method="post">
                             {{ item.update_count.count }}
                             {{ item.update_count.update }}
-                            <input type="submit" value="Update">
+                            <input class="order-list" type="submit" value="Update">
                             {% csrf_token %}
                         </form>
                     </td>
                     <td class="num">₴{{ item.total_price }}</td>
-                    <td><a href="{% url 'orderlist:orderlist_delete' product.id%}">Delete</a></td>
+                    <td><a class="order-list" href="{% url 'orderlist:orderlist_delete' product.id%}">Delete</a></td>
                 </tr>
             {% endwith %}
         {% endfor %}

@@ -86,15 +86,6 @@
       margin-top:10px;
   }
 
-  input[type="submit"] {
-    color:#fff;
-    background:#5993bb;
-    border-radius:4px;
-    padding:10px 20px;
-    font-size:14px;
-    border:0;
-    }
-
    table {
     width:100%;
     border-spacing:0;
@@ -147,6 +138,20 @@
     border:0;
     }
 
+    a.order-list {
+    color:black;
+    }
+
+    input[type="submit"].order-list {
+        background:#12c064;
+        color:#fff;
+        border-radius:4px;
+        padding:10px 20px;
+        font-size:14px;
+        border:0;
+        float: revert;
+    }
+
     a.button.light {
     color:#666;
     background:#ededed;
@@ -155,3 +160,108 @@
     .text-right {
         text-align:right;
     }
+
+form {
+    overflow:auto;
+    margin-left: 5px;
+}
+
+.login-form {
+    float:left;
+}
+
+form p {
+    width:100%;
+    overflow:auto;
+}
+
+label {
+    float:left;
+    clear:both;
+    color:#333;
+    margin-bottom:4px;
+    margin-top: -1px;
+}
+
+.helptext {
+    margin:0 0 20px 0;
+    color:#aaa;
+    clear:both;
+    float:left;
+    font-size:13px;
+}
+
+input, textarea {
+    clear:both;
+    float:left;
+    margin:0 0 10px;
+    background:#efefef;
+    border:0;
+    padding:6px 10px;
+    font-size:14px;
+}
+
+ul.messages {
+    margin:10px 100px;
+    padding:0;
+    list-style-type: none;
+}
+ul.messages li.success,
+ul.messages li.warning,
+ul.messages li.error,
+ul.messages li.info {
+    margin:0;
+    padding:14px 20px;
+    list-style:none;
+    color:#fff;
+}
+
+ul.messages li.success { background:#81ce81; }
+ul.messages li.success a { color:#0ac33e; }
+
+ul.messages li.error { background:#a30029; color:#e9828e; }
+ul.messages li.error a { color:#e9828e; }
+
+ul.messages li.info { background:#faffae; color:#696b4e; }
+ul.messages li.info a { color:#1586de; }
+
+ul.messages li.warning { background:#de9404; }
+ul.messages li.warning a { color:#f49000; }
+
+ul.messages li a.close {
+    margin:0;
+    float:right;
+    opacity:1;
+    border:0;
+    box-shadow:none;
+    text-shadow:none;
+}
+
+#id_register_like {
+    list-style-type: none;
+}
+
+#id_register_like_0 {
+    margin-right: 5px;
+    margin-top: 7px;
+    margin-bottom: 0;
+}
+
+#id_register_like_1 {
+    margin-right: 5px;
+    margin-top: 7px;
+}
+
+#register-button {
+    background: rgb(45,39,145);
+    background: linear-gradient(90deg, rgba(45,39,145,1) 0%, rgba(65,95,214,1) 50%, rgba(79,181,201,1) 100%);
+}
+
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
