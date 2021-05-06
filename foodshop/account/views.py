@@ -1,10 +1,12 @@
+from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-from .forms import RegistrationForm, UserEditForm, ProfileEditForm, CreateProductForm, LoginForm, ShopRegistrationForm
+from .forms import RegistrationForm, UserEditForm, ProfileEditForm, CreateProductForm, LoginForm, \
+    ShopRegistrationForm, CreateCategoryForm
 from .models import UserProfile
 from shop.models import Product, Shop
 from .decorators import unauthenticated_user, entrepreneur_only
@@ -54,12 +56,14 @@ def edit(request):
 @login_required
 @entrepreneur_only
 def createProduct(request):
-    form = CreateProductForm()
+    shop = Shop.objects.get(owner=request.user)
+    form = CreateProductForm(initial={'shop': shop})
+    form.fields['shop'].widget = forms.HiddenInput()
     if request.method == "POST":
         form = CreateProductForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('my_products')
     context = {'form': form}
     return render(request, 'registration/CRUD/create_product.html', context)
 
@@ -69,11 +73,12 @@ def createProduct(request):
 def updateProduct(request, id, slug):
     product = Product.objects.get(id=id, slug=slug)
     form = CreateProductForm(instance=product)
+    form.fields['shop'].widget = forms.HiddenInput()
     if request.method == 'POST':
         form = CreateProductForm(request.POST, instance=product)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('my_products')
     context = {"form": form}
     return render(request, 'registration/CRUD/update_product.html', context)
 
@@ -84,6 +89,28 @@ def deleteProduct(request, id, slug):
     product = Product.objects.get(id=id, slug=slug)
     if request.method == "POST":
         product.delete()
-        return redirect('/')
+        return redirect('my_products')
     context = {"product": product}
     return render(request, 'registration/CRUD/delete_product.html', context)
+
+
+@login_required
+@entrepreneur_only
+def myProducts(request):
+    shop = Shop.objects.get(owner=request.user)
+    products = Product.objects.filter(shop=shop)
+    context = {"products": products}
+    return render(request, 'registration/CRUD/my_products.html', context)
+
+
+@login_required
+@entrepreneur_only
+def addCategory(request):
+    form = CreateCategoryForm()
+    if request.method == "POST":
+        form = CreateCategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('my_products')
+    context = {'form': form}
+    return render(request, 'registration/CRUD/add_category.html', context)

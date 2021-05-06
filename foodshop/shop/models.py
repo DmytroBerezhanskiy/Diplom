@@ -30,6 +30,10 @@ class Category(models.Model):
         ordering = ('name',)
         default_related_name = "category"
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 

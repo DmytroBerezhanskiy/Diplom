@@ -15,6 +15,17 @@
     margin-right: -75px;
     }
 
+    #subheader .my-products {
+    float: left;
+    color: black;
+    padding-top: 4px;
+    margin-left: -75px;
+    }
+
+    #subheader .my-products a {
+        color: black;
+    }
+
     .user{
     color:white;
     }

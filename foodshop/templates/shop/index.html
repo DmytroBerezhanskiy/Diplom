@@ -43,14 +43,14 @@
               <p class="card-text"><a href="{{ product.get_shop_slug }}">
                   {{product.shop|safe | truncatewords:10 }}</a></p>
               <a href="{{ product.get_absolute_url }}" style="width:40%" class="btn btn-outline-primary">Read More</a>
-              {% if request.user.is_authenticated %}
-                {% if request.user|has_shop:product.shop %}
-                <a href="{% url 'update_product' product.id product.slug %}" style="width:40%"
-                   class="btn btn-outline-primary">Update</a>
-                <a href="{% url 'delete_product' product.id product.slug %}" style="width:40%"
-                   class="btn btn-outline-primary">Delete</a>
-                {% endif %}
-              {% endif %}
+{#              {% if request.user.is_authenticated %}#}
+{#                {% if request.user|has_shop:product.shop %}#}
+{#                <a href="{% url 'update_product' product.id product.slug %}" style="width:40%"#}
+{#                   class="btn btn-outline-primary">Update</a>#}
+{#                <a href="{% url 'delete_product' product.id product.slug %}" style="width:40%"#}
+{#                   class="btn btn-outline-primary">Delete</a>#}
+{#                {% endif %}#}
+{#              {% endif %}#}
             </div>
           </div>
         </div>

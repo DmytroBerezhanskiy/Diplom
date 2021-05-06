@@ -1,3 +1,4 @@
+{% load custom_tags %}
 {% load static %}
 
 <html lang="en">
@@ -42,6 +43,13 @@
   </div>
 </nav>
 <div id="subheader">
+<div class="my-products">
+    {% if request.user.is_authenticated %}
+        {% if request.user|has_group:"entrepreneur" %}
+            <a href="{% url 'my_products' %}">My products</a>
+        {% endif %}
+    {% endif %}
+</div>
  <div class="order-list">
           {% with total_items=orderlist|length %}
             {% if orderlist|length > 0 %}
