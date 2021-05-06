@@ -6,6 +6,7 @@
 </head>
 {% block context %}
 <body>
+{% if categories %}
 <div class="splide mb-3">
         <div class="splide__track">
             <ul class="splide__list">
@@ -15,6 +16,7 @@
             </ul>
         </div>
     </div>
+{% endif %}
 <div id="sidebar">
         <h3>Restaurants</h3>
         <ul>
@@ -28,6 +30,7 @@
             {% endfor %}
         </ul>
     </div>
+{% if product_list %}
 <div class="row">
       {% for product in product_list %}
         <div class="post-item col-12 col-sm-6 col-md-6 col-lg-3 p-2">
@@ -40,7 +43,7 @@
               <p class="card-text"><a href="{{ product.get_shop_slug }}">
                   {{product.shop|safe | truncatewords:10 }}</a></p>
               <a href="{{ product.get_absolute_url }}" style="width:40%" class="btn btn-outline-primary">Read More</a>
-              {% if request.user|has_group:"entrepreneur" %}
+              {% if request.user|has_shop:product.shop %}
                 <a href="{% url 'update_product' product.id product.slug %}" style="width:40%"
                    class="btn btn-outline-primary">Update</a>
                 <a href="{% url 'delete_product' product.id product.slug %}" style="width:40%"
@@ -51,6 +54,9 @@
         </div>
       {% endfor %}
     </div>
+{% else %}
+<p style="font-style:oblique; font-size: 400%">Sorry, there are no products in this collection.</p>
+{% endif %}
 </body>
 </html>
 {% endblock context %}

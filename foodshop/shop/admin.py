@@ -4,7 +4,7 @@ from .models import Category, Product, Shop
 
 @admin.register(Shop)
 class ShopAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'slug')
+    list_display = ('name', 'slug', "owner")
     prepopulated_fields = {'slug': ('name',)}
     ordering = ('name',)
 

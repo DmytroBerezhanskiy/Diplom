@@ -1354,22 +1354,22 @@
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="508" parent="170" name="address">
+    <column id="508" parent="170" name="telephone">
       <Position>2</Position>
-      <DataType>varchar(150)|0s</DataType>
+      <DataType>varchar(12)|0s</DataType>
     </column>
-    <column id="509" parent="170" name="user_id">
+    <column id="509" parent="170" name="address">
       <Position>3</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
+      <DataType>varchar(150)|0s</DataType>
     </column>
     <column id="510" parent="170" name="birthday">
       <Position>4</Position>
       <DataType>date|0s</DataType>
     </column>
-    <column id="511" parent="170" name="telephone">
+    <column id="511" parent="170" name="user_id">
       <Position>5</Position>
-      <DataType>varchar(12)|0s</DataType>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
     </column>
     <index id="512" parent="170" name="sqlite_autoindex_account_userprofile_1">
       <NameSurrogate>1</NameSurrogate>
@@ -1832,44 +1832,44 @@ model</ColNames>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="601" parent="181" name="email">
+    <column id="601" parent="181" name="first_name">
       <Position>2</Position>
-      <DataType>varchar(50)|0s</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="602" parent="181" name="address">
+    <column id="602" parent="181" name="last_name">
       <Position>3</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="603" parent="181" name="created">
+    <column id="603" parent="181" name="email">
       <Position>4</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="604" parent="181" name="updated">
+    <column id="604" parent="181" name="address">
       <Position>5</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="605" parent="181" name="telephone">
+      <Position>6</Position>
+      <DataType>varchar(12)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="606" parent="181" name="created">
+      <Position>7</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="605" parent="181" name="paid">
-      <Position>6</Position>
-      <DataType>bool|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="606" parent="181" name="first_name">
-      <Position>7</Position>
-      <DataType>varchar(100)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="607" parent="181" name="last_name">
+    <column id="607" parent="181" name="updated">
       <Position>8</Position>
-      <DataType>varchar(100)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="608" parent="181" name="telephone">
+    <column id="608" parent="181" name="paid">
       <Position>9</Position>
-      <DataType>varchar(12)|0s</DataType>
+      <DataType>bool|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="609" parent="181">
@@ -2073,53 +2073,75 @@ slug</ColNames>
       <DataType>varchar(150)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="649" parent="185" name="slug">
+    <column id="649" parent="185" name="owner_id">
       <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="650" parent="185" name="slug">
+      <Position>4</Position>
       <DataType>varchar(150)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="650" parent="185" name="sqlite_autoindex_shop_shop_1">
+    <index id="651" parent="185" name="sqlite_autoindex_shop_shop_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>owner_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="652" parent="185" name="sqlite_autoindex_shop_shop_2">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>slug</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <index id="651" parent="185" name="shop_shop_name_4f0eac61">
+    <index id="653" parent="185" name="shop_shop_name_4f0eac61">
       <ColNames>name</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="652" parent="185">
+    <key id="654" parent="185">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="653" parent="185">
-      <ColNames>slug</ColNames>
+    <key id="655" parent="185">
+      <ColNames>owner_id</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_shop_shop_1</UnderlyingIndexName>
     </key>
-    <column id="654" parent="186" name="type">
+    <key id="656" parent="185">
+      <ColNames>slug</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_shop_shop_2</UnderlyingIndexName>
+    </key>
+    <foreign-key id="657" parent="185">
+      <ColNames>owner_id</ColNames>
+      <RefTableName>auth_user</RefTableName>
+      <RefColNames>id</RefColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+    </foreign-key>
+    <column id="658" parent="186" name="type">
       <Position>1</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="655" parent="186" name="name">
+    <column id="659" parent="186" name="name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="656" parent="186" name="tbl_name">
+    <column id="660" parent="186" name="tbl_name">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="657" parent="186" name="rootpage">
+    <column id="661" parent="186" name="rootpage">
       <Position>4</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="658" parent="186" name="sql">
+    <column id="662" parent="186" name="sql">
       <Position>5</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="659" parent="187" name="name">
+    <column id="663" parent="187" name="name">
       <Position>1</Position>
     </column>
-    <column id="660" parent="187" name="seq">
+    <column id="664" parent="187" name="seq">
       <Position>2</Position>
     </column>
   </database-model>
