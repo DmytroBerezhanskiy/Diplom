@@ -3,12 +3,11 @@
 {% block context %}
  <h1>Edit your account</h1>
  <p>You can edit your account by using form below:</p>
- <form action="." method="post" enctype="multipart/form-data">
+ <form action="." style="margin-left: 5px; margin-bottom: -15px" method="post" enctype="multipart/form-data">
  {{ user_form.as_p }}
  {{ profile_form.as_p }}
  {% csrf_token %}
  <p><input type="submit" value="Save changes"></p>
  </form>
-<p><a href="{% url 'create_product' %}">Create product</a></p>
 <a href="{% url 'password_change' %}">Change the password</a>
 {% endblock %}
