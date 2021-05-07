@@ -26,6 +26,42 @@
         color: black;
     }
 
+    .order-info {
+    float:right;
+    width:300px;
+    background:#efefef;
+    padding:10px 20px;
+    color:#333;
+    border-bottom:4px solid #5993bb;
+}
+
+.order-form input {
+    width: 35%;
+}
+
+.order-info h3 {
+    color:black;
+}
+
+.order-info ul li {
+    margin:0;
+    padding:0;
+    font-size:18px;
+    list-style: none;
+    font-weight: 500;
+
+}
+
+.order-info p {
+    font-weight:bold;
+    float:right;
+}
+
+.order-info span {
+    float:right;
+}
+
+
     .user{
     color:white;
     }
