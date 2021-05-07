@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django import forms
 from account.models import UserProfile
-from .models import OrderItem
+from .models import OrderItem, Order
 from .forms import OrderForm
 from orderlist.orderlist import OrderList
 

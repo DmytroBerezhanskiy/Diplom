@@ -1,0 +1,17 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+{% block title %} Orders history {% endblock %}
+{% block context %}
+
+{% for order in orderhistory %}
+    <p>Order id {{ order.id }}
+    Products:
+    {% for item in orderitem %}
+    {% if order.id == item.order_id %}
+        {{ item.quantity }}x {{item.product}} price {{ item.price }},
+    {% endif %}
+    {% endfor %}
+        Created order {{ order.created }}</p>
+    {% endfor %}
+
+{% endblock %}

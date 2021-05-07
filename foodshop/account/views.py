@@ -5,6 +5,8 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
+
+from orders.models import Order, OrderItem
 from .forms import RegistrationForm, UserEditForm, ProfileEditForm, CreateProductForm, LoginForm, \
     ShopRegistrationForm, CreateCategoryForm
 from .models import UserProfile
@@ -114,3 +116,9 @@ def addCategory(request):
             return redirect('my_products')
     context = {'form': form}
     return render(request, 'registration/CRUD/add_category.html', context)
+
+
+def ordersHistory(request):
+    orderhistory = Order.objects.filter(username=request.user).order_by('id')
+    orderitem = OrderItem.objects.filter(order__in=orderhistory)
+    return render(request, 'registration/order_history.html', {"orderhistory": orderhistory, "orderitem": orderitem})
