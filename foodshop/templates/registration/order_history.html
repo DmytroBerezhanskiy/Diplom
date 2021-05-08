@@ -1,17 +1,47 @@
 {% extends 'registration/base.html' %}
 {% load static %}
+{% load mathfilters %}
 {% block title %} Orders history {% endblock %}
 {% block context %}
-
-{% for order in orderhistory %}
-    <p>Order id {{ order.id }}
-    Products:
-    {% for item in orderitem %}
-    {% if order.id == item.order_id %}
-        {{ item.quantity }}x {{item.product}} price {{ item.price }},
-    {% endif %}
-    {% endfor %}
-        Created order {{ order.created }}</p>
-    {% endfor %}
+<h1>Your orders history </h1>
+    <table class="order-history" style="width: 95%; margin: auto">
+        <thead>
+            <tr>
+                <th>Order id</th>
+                <th>Products</th>
+                <th>Price</th>
+                <th>Address</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orderhistory %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{% for item in orderitem %}
+                        {% if order.id == item.order_id %}
+                            {{ item.quantity }}x {{item.product}}<br>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{% for item in orderitem %}
+                        {% if order.id == item.order_id %}
+                            {{ item.quantity|mul:item.price }} ({{ item.price }})<br>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ order.address }}</td>
+                <td>{{ order.created }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total-sum">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tbody>
+    </table>
 
 {% endblock %}

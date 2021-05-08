@@ -312,3 +312,11 @@ ul.messages li a.close {
 .show {
     display: block;
 }
+
+table.order-history td {
+    text-align: center;
+}
+
+table.order-history th {
+    text-align: center;
+}
