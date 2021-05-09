@@ -117,6 +117,7 @@ def addCategory(request):
     context = {'form': form}
     return render(request, 'registration/CRUD/add_category.html', context)
 
+
 @login_required
 def ordersHistory(request):
     orderhistory = Order.objects.filter(username=request.user).order_by('id')

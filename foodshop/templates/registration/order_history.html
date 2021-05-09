@@ -3,8 +3,11 @@
 {% load mathfilters %}
 {% block title %} Orders history {% endblock %}
 {% block context %}
-<h1>Your orders history </h1>
-    <table class="order-history" style="width: 95%; margin: auto">
+<div style="margin-left: 75px">
+    <h1>Your orders history </h1>
+    <hr>
+    {% if orderhistory %}
+    <table class="order-history" style="width: 95%;">
         <thead>
             <tr>
                 <th>Order id</th>
@@ -43,5 +46,9 @@
             </tr>
         </tbody>
     </table>
+    {% else %}
+<p style="font-style:oblique; font-size: 400%">Sorry, but you haven't made any orders yet.</p>
+{% endif %}
+</div>
 
 {% endblock %}
