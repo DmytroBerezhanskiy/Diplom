@@ -9,11 +9,17 @@
         {% for item in orderlist %}
         <li>
             {{ item.count }}x {{ item.product.name }}
-            <span>₴{{ item.total_price }}</span>
+            <span>₴{{ item.total_price|floatformat:"2" }}</span>
         </li>
         {% endfor %}
+        {% if orderlist.promocode %}
+        <li>
+            <strong>Promocode</strong> "{{ orderlist.promocode.code }}" ({{ orderlist.promocode.discount }}% off)
+            <span>- ₴{{ orderlist.get_discount|floatformat:"2" }} </span>
+        </li>
+        {% endif %}
         </ul>
-    <p>Total: ₴{{ orderlist.get_total_price }}</p>
+    <p><strong>Total: ₴{{ orderlist.get_total_price_discount|floatformat:"2" }}</strong></p>
  </div>
 
 <form action="." method="post" class="order-form">

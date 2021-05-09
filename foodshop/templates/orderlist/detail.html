@@ -40,13 +40,50 @@
                 </tr>
             {% endwith %}
         {% endfor %}
+        {% if orderlist.promocode %}
+            <tr class="subtotal">
+                <td>Total sum without discount</td>
+                <td colspan="3"></td>
+                <td class="num">₴{{ orderlist.get_total_price}}</td>
+                <td colspan="1"></td>
+            </tr>
+            <tr>
+                <td>
+                    Promocode "{{ orderlist.promocode.code }}"
+                    ({{ orderlist.promocode.discount }}% off)
+                </td>
+                <td colspan="3"></td>
+                <td class="num neg">
+                    ₴{{ orderlist.get_discount|floatformat:"2" }}
+                </td>
+                <td colspan="1"></td>
+            </tr>
+        {% endif %}
         <tr class="total-sum">
+            {% if orderlist.promocode %}
+            <td>Total sum with discount</td>
+            {% else %}
             <td>Total sum</td>
+            {% endif %}
             <td colspan="4"></td>
-            <td class="num">₴{{ orderlist.get_total_price }}</td>
+            <td class="num">
+                ₴{{ orderlist.get_total_price_discount|floatformat:"2" }}
+            </td>
         </tr>
         </tbody>
     </table>
+    <form style="margin-left: 10px" action="{% url "promocode_apply" %}" method="post">
+        <p>Enter the promocode:</p>
+        {{ form }}
+    <input type="submit" value="Apply">
+        {% csrf_token %}
+    </form>
+
+
+
+
+
+
     <p class="text-right">
         <a href="{% url 'product_list' %}" class="button light">Continue shopping</a>
         <a href="{% url 'create_order' %}" class="button">Checkout</a>

@@ -1,5 +1,7 @@
 from django.conf import settings
 from decimal import Decimal
+
+from promocode.models import Promocode
 from shop.models import Product
 
 
@@ -10,6 +12,7 @@ class OrderList(object):
         if not orderlist:
             orderlist = self.session[settings.ORDERLIST_SESSION_ID] = {}
         self.orderlist = orderlist
+        self.promocode_id = self.session.get('promocode_id')
 
     def add(self, product, count=1, update_count=False):
         product_id = str(product.id)
@@ -51,3 +54,17 @@ class OrderList(object):
     def clear(self):
         del self.session[settings.ORDERLIST_SESSION_ID]
         self.session.modified = True
+
+    @property
+    def promocode(self):
+        if self.promocode_id:
+            return Promocode.objects.get(id=self.promocode_id)
+        return None
+
+    def get_discount(self):
+        if self.promocode:
+            return self.promocode.discount / Decimal("100") * self.get_total_price()
+        return Decimal("0")
+
+    def get_total_price_discount(self):
+        return self.get_total_price() - self.get_discount()

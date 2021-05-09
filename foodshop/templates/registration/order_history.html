@@ -13,6 +13,7 @@
                 <th>Order id</th>
                 <th>Products</th>
                 <th>Price</th>
+                <th>Promocode</th>
                 <th>Address</th>
                 <th>Date</th>
             </tr>
@@ -33,16 +34,17 @@
                         {% endif %}
                     {% endfor %}
                 </td>
+                {% if order.promocode %}
+                <td>{{ order.promocode }} ({{ order.discount }}%)</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
                 <td>{{ order.address }}</td>
                 <td>{{ order.created }}</td>
             </tr>
             {% endfor %}
             <tr class="total-sum">
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <td colspan="6"></td>
             </tr>
         </tbody>
     </table>

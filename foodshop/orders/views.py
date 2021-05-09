@@ -12,7 +12,12 @@ def create_order(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
-            order = form.save()
+            order = form.save(commit=False)
+            if orderlist.promocode:
+                order.promocode = orderlist.promocode
+                order.discount = orderlist.promocode.discount
+            order.save()
+            request.session['promocode_id'] = None
             for item in orderlist:
                 OrderItem.objects.create(order=order,
                                          product=item['product'],

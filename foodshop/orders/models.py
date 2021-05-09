@@ -1,4 +1,8 @@
+from decimal import Decimal
+
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+from promocode.models import Promocode
 from shop.models import Product
 
 
@@ -13,6 +17,9 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
 
+    promocode = models.ForeignKey(Promocode, related_name="orders", null=True, blank=True, on_delete=models.SET_NULL)
+    discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+
     class Meta:
         ordering = ('-created',)
         default_related_name = "orders"
@@ -21,7 +28,8 @@ class Order(models.Model):
         return 'Order {}'.format(self.id)
 
     def get_total_price(self):
-        return sum(item.get_cost() for item in self.items.all())
+        total_price = sum(item.get_cost() for item in self.items.all())
+        return total_price - total_price * (self.discount / Decimal("100"))
 
 
 class OrderItem(models.Model):

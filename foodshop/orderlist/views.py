@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
+
+from promocode.forms import PromocodeForm
 from .forms import OrderListAddProductForm
 from .orderlist import OrderList
 from shop.models import Product
@@ -31,4 +33,5 @@ def orderlist_detail(request):
         item['update_count'] = OrderListAddProductForm(
                             initial={'count': item['count'],
                                      'update': True})
-    return render(request, 'orderlist/detail.html', {'orderlist': orderlist})
+    form = PromocodeForm()
+    return render(request, 'orderlist/detail.html', {'orderlist': orderlist, "form": form})
