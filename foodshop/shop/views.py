@@ -15,6 +15,7 @@ from orderlist.forms import OrderListAddProductForm
 #         return context
 
 def product_list(request, shop_slug=None, category_slug=None):
+    orderlist_form = OrderListAddProductForm()
     shop = None
     shops = Shop.objects.all()
     category = None
@@ -33,7 +34,8 @@ def product_list(request, shop_slug=None, category_slug=None):
                    'category': category,
                    'categories': categories,
                    'shop': shop,
-                   'shops': shops})
+                   'shops': shops,
+                   "form": orderlist_form})
 
 
 def product_detail(request, id, slug):

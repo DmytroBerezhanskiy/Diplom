@@ -5,6 +5,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from promocode.models import Promocode
 from shop.models import Product
 
+STATUS_CHOICES = [
+    ('received', 'Received'),
+    ('order collection', 'Order collection'),
+    ('delivery', 'Delivery'),
+    ('delivered', 'Delivered'),
+]
+
 
 class Order(models.Model):
     username = models.CharField(max_length=100)
@@ -16,6 +23,10 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+
+    note = models.CharField(max_length=150, null=True, blank=True)
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='received')
 
     promocode = models.ForeignKey(Promocode, related_name="orders", null=True, blank=True, on_delete=models.SET_NULL)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])

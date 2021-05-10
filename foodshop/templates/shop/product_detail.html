@@ -17,7 +17,7 @@
     <form action="{% url 'orderlist:orderlist_add' product.id %}" method="post">
     {{ orderlist_form }}
     {% csrf_token %}
-    <input type="submit" value="Add to order list">
+    <input type="submit" value="Buy">
 </form>
       <div class="product-description" style="word-wrap: break-word">
           {{ product.description}}

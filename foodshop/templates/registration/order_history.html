@@ -16,6 +16,8 @@
                 <th>Promocode</th>
                 <th>Address</th>
                 <th>Date</th>
+                <th>Note</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -41,10 +43,16 @@
                 {% endif %}
                 <td>{{ order.address }}</td>
                 <td>{{ order.created }}</td>
+                {% if order.note %}
+                <td>{{ order.note }}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                <td>{{ order.status }}</td>
             </tr>
             {% endfor %}
             <tr class="total-sum">
-                <td colspan="6"></td>
+                <td colspan="8"></td>
             </tr>
         </tbody>
     </table>
