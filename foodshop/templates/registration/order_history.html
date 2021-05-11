@@ -17,6 +17,7 @@
                 <th>Address</th>
                 <th>Date</th>
                 <th>Note</th>
+                <th>Courier</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -48,11 +49,12 @@
                 {% else %}
                 <td>-</td>
                 {% endif %}
+                <td>{{ order.courier }}<br>{{ order.courier.telephone }}</td>
                 <td>{{ order.status }}</td>
             </tr>
             {% endfor %}
             <tr class="total-sum">
-                <td colspan="8"></td>
+                <td colspan="9"></td>
             </tr>
         </tbody>
     </table>

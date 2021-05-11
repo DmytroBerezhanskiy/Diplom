@@ -2,8 +2,10 @@ from decimal import Decimal
 
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+
+from courier.models import Courier
 from promocode.models import Promocode
-from shop.models import Product
+from shop.models import Product, Shop
 
 STATUS_CHOICES = [
     ('received', 'Received'),
@@ -25,6 +27,8 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
 
     note = models.CharField(max_length=150, null=True, blank=True)
+
+    courier = models.ForeignKey(Courier, on_delete=models.CASCADE, null=True, blank=True)
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='received')
 
