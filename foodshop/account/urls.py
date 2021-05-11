@@ -28,5 +28,6 @@ urlpatterns = [
     path('my_products/', views.myProducts, name='my_products'),
     path('create_category/', views.addCategory, name='create_category'),
 
-    path('orders_history/', views.ordersHistory, name='orders_history')
+    path('orders_history/', views.ordersHistory, name='orders_history'),
+    path('orders_history/<int:id>', views.orderHistory_detail, name='order_detail')
 ]

@@ -42,6 +42,10 @@ class Order(models.Model):
     def __str__(self):
         return 'Order {}'.format(self.id)
 
+    def get_total_price_without_discount(self):
+        total_price = sum(item.get_cost() for item in self.items.all())
+        return total_price
+
     def get_total_price(self):
         total_price = sum(item.get_cost() for item in self.items.all())
         return total_price - total_price * (self.discount / Decimal("100"))
@@ -58,3 +62,8 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+
+    def get_shop(self):
+        shop = Product.objects.get(name=self.product).shop
+        shop = Shop.objects.get(name=shop)
+        return shop

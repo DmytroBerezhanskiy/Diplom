@@ -1,6 +1,5 @@
 {% extends 'registration/base.html' %}
 {% load static %}
-{% load mathfilters %}
 {% block title %} Orders history {% endblock %}
 {% block context %}
 <div style="margin-left: 75px">
@@ -11,50 +10,24 @@
         <thead>
             <tr>
                 <th>Order id</th>
-                <th>Products</th>
-                <th>Price</th>
-                <th>Promocode</th>
+                <th>Total price</th>
                 <th>Address</th>
-                <th>Date</th>
-                <th>Note</th>
-                <th>Courier</th>
+                <th>Data</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
             {% for order in orderhistory %}
             <tr>
-                <td>{{ order.id }}</td>
-                <td>{% for item in orderitem %}
-                        {% if order.id == item.order_id %}
-                            {{ item.quantity }}x {{item.product}}<br>
-                        {% endif %}
-                    {% endfor %}
-                </td>
-                <td>{% for item in orderitem %}
-                        {% if order.id == item.order_id %}
-                            {{ item.quantity|mul:item.price }} ({{ item.price }})<br>
-                        {% endif %}
-                    {% endfor %}
-                </td>
-                {% if order.promocode %}
-                <td>{{ order.promocode }} ({{ order.discount }}%)</td>
-                {% else %}
-                <td>-</td>
-                {% endif %}
+                <td><a href="{% url 'order_detail' order.id %}">{{ order.id }}</a></td>
+                <td>{{ order.get_total_price|floatformat:'2' }}₴</td>
                 <td>{{ order.address }}</td>
                 <td>{{ order.created }}</td>
-                {% if order.note %}
-                <td>{{ order.note }}</td>
-                {% else %}
-                <td>-</td>
-                {% endif %}
-                <td>{{ order.courier }}<br>{{ order.courier.telephone }}</td>
                 <td>{{ order.status }}</td>
             </tr>
             {% endfor %}
             <tr class="total-sum">
-                <td colspan="9"></td>
+                <td colspan="5"></td>
             </tr>
         </tbody>
     </table>

@@ -123,3 +123,10 @@ def ordersHistory(request):
     orderhistory = Order.objects.filter(username=request.user).order_by('id')
     orderitem = OrderItem.objects.filter(order__in=orderhistory)
     return render(request, 'registration/order_history.html', {"orderhistory": orderhistory, "orderitem": orderitem})
+
+
+@login_required
+def orderHistory_detail(request, id):
+    order = Order.objects.get(id=id)
+    orderitem = OrderItem.objects.filter(order=order)
+    return render(request, 'registration/order_history_detail.html', {"order": order, "orderitem": orderitem})
