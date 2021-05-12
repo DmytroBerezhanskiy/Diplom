@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Category, Product, Shop
+from .models import Category, Product, Shop, Reviews
+
+
+class ReviewsInline(admin.TabularInline):
+    model = Reviews
+    ordering = ('-created',)
 
 
 @admin.register(Shop)
@@ -23,3 +28,7 @@ class ProductAdminModel(admin.ModelAdmin):
     ordering = ('name',)
     list_filter = ['available', 'created', 'updated']
     list_editable = ('price', 'available', 'image',)
+    inlines = [ReviewsInline]
+
+
+

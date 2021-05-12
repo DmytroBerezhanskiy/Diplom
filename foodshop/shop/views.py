@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
-from .models import Product, Category, Shop
+from django.http import HttpResponseRedirect
+from foodshop.settings import LOGIN_URL
+from .forms import ReviewsForm
+from .models import Product, Category, Shop, Reviews
 from orderlist.forms import OrderListAddProductForm
 
 
@@ -22,8 +26,6 @@ def product_list(request, shop_slug=None, category_slug=None):
     categories = Category.objects.all()
     products = Product.objects.available()
     if shop_slug:
-        # category = Category.objects.get(slug=category_slug)
-        # products = products.filter(category=category)
         shop = Shop.objects.get(slug=shop_slug)
         products = products.filter(shop=shop)
     if category_slug:
@@ -41,6 +43,25 @@ def product_list(request, shop_slug=None, category_slug=None):
 def product_detail(request, id, slug):
     product = Product.objects.available().get(id=id, slug=slug)
     orderlist_form = OrderListAddProductForm()
+    reviews = product.reviews.filter(show=True)
+    new_review = None
+    if request.method == "POST":
+        reviews_form = ReviewsForm(request.POST)
+        if reviews_form.is_valid() and request.user.is_authenticated:
+            new_review = reviews_form.save(commit=False)
+            new_review.product = product
+            new_review.author = request.user
+            new_review.save()
+            reviews_form = ReviewsForm()
+            messages.success(request, 'Your review has been successfully submitted for review')
+            return HttpResponseRedirect(request.path)
+        else:
+            return redirect(LOGIN_URL)
+    else:
+        reviews_form = ReviewsForm()
     return render(request, 'shop/product_detail.html',
                   {'product': product,
-                   'orderlist_form': orderlist_form})
+                   'orderlist_form': orderlist_form,
+                   'reviews': reviews,
+                   'new_review': new_review,
+                   'reviews_form': reviews_form})
