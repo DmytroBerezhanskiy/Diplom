@@ -78,14 +78,9 @@
     <input type="submit" value="Apply">
         {% csrf_token %}
     </form>
-
-
-
-
-
-
     <p class="text-right">
-        <a href="{% url 'product_list' %}" class="button light">Continue shopping</a>
+{#        <a href="{{ request.path }}" class="button light">Continue shopping</a>#}
+        <a href="{{ request.META.HTTP_REFERER }}" class="button light">Continue shopping</a>
         <a href="{% url 'create_order' %}" class="button">Checkout</a>
     </p>
 {% endblock %}

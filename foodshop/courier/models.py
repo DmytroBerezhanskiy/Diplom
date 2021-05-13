@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -12,3 +13,14 @@ class Courier(models.Model):
 
     def __str__(self):
         return self.surname + " " + self.name
+
+
+class CouriersReview(models.Model):
+    order = models.PositiveIntegerField()
+    courier = models.ForeignKey(Courier, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ("created", )

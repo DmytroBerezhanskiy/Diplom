@@ -3,9 +3,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 
+from courier.forms import CouriersReviewForm
 from orders.models import Order, OrderItem
 from .forms import RegistrationForm, UserEditForm, ProfileEditForm, CreateProductForm, LoginForm, \
     ShopRegistrationForm, CreateCategoryForm
@@ -129,4 +130,18 @@ def ordersHistory(request):
 def orderHistory_detail(request, id):
     order = Order.objects.get(id=id)
     orderitem = OrderItem.objects.filter(order=order)
-    return render(request, 'registration/order_history_detail.html', {"order": order, "orderitem": orderitem})
+    if request.method == "POST":
+        form = CouriersReviewForm(request.POST)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.order = order.id
+            new_review.courier = order.courier
+            new_review.author = request.user
+            new_review.save()
+            form = CouriersReviewForm()
+            messages.success(request, 'Thanks you for you review')
+            return HttpResponseRedirect(request.path)
+    else:
+        form = CouriersReviewForm()
+    return render(request, 'registration/order_history_detail.html', {"order": order, "orderitem": orderitem,
+                                                                      "form": form})

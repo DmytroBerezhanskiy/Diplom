@@ -1,10 +1,10 @@
 from django import forms
-from .models import Reviews
+from courier.models import CouriersReview
 
 
-class ReviewsForm(forms.ModelForm):
+class CouriersReviewForm(forms.ModelForm):
     class Meta:
-        model = Reviews
+        model = CouriersReview
         fields = ['body']
         labels = {
             'body': "Your review"

@@ -23,7 +23,11 @@
                 <td>{{ order.get_total_price|floatformat:'2' }}₴</td>
                 <td>{{ order.address }}</td>
                 <td>{{ order.created }}</td>
-                <td>{{ order.status }}</td>
+                <td>{{ order.status }}
+{#                    {% if order.status == "delivered" %}#}
+{#                        <br/><a href="#">Evaluate</a>#}
+{#                    {% endif %}#}
+                </td>
             </tr>
             {% endfor %}
             <tr class="total-sum">

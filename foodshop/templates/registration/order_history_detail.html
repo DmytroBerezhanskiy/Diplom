@@ -53,6 +53,19 @@
             <td>{{ order.courier }}<br> {{ order.courier.telephone }}</td>
         </tr>
     </table>
+    {% if order.status == "delivered" %}
+    <br />
+    <p><button class="btn btn-primary" id="SendBtn" name="SendBtn" onclick="showFormReview()">Add review</button></p>
+        <div id="hidden-div" class="d-none">
+            <div class="card card-body mt-2">
+                <form action="." id="form-review" class="d-none" method="post">
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <p><button class="btn btn-primary" type="submit">Send review</button></p>
+                </form>
+            </div>
+        </div>
+    {% endif %}
     <hr>
     <p>Products</p>
     <table>
