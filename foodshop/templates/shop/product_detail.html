@@ -19,14 +19,11 @@
     {% csrf_token %}
     <input type="submit" value="Buy">
 </form>
-      <div class="product-description" style="word-wrap: break-word">
+      <div class="product-description pl-2" style="word-wrap: break-word">
           {{ product.description}}
       </div>
   </div>
-
-
-
-
+<div class="reviews mt-5 pl-2">
 <h2>Reviews</h2>
     <hr />
     <button class="btn btn-primary" id="SendBtn" onclick="showFormReview()">Add review</button><hr />
@@ -39,7 +36,8 @@
         </form>
       </div>
     </div>
-    <div class="reviews-list">
+    <div class="reviews-list pb-2">
+        {% if reviews %}
         {% for review in reviews %}
             <div>
                 <p>
@@ -50,7 +48,11 @@
                 </p><hr>
             </div>
         {% endfor %}
+        {% else %}
+            <span style="font-size: 26px; font-weight: 600; font-style: italic">Sorry, there are no reviews here yet</span>
+        {% endif %}
     </div>
+</div>
 
 
 
