@@ -46,7 +46,7 @@ def product_list(request, shop_slug=None, category_slug=None):
 
 
 def product_detail(request, id, slug):
-    product = Product.objects.available().get(id=id, slug=slug)
+    product = Product.objects.get(id=id, slug=slug)
     orderlist_form = OrderListAddProductForm()
     reviews = product.reviews.filter(show=True)
     new_review = None

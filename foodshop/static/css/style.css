@@ -320,3 +320,18 @@ table.order-history td {
 table.order-history th {
     text-align: center;
 }
+
+.gray-bg {
+    background-color: RGBA(0,0,0,0.06);
+}
+
+.product-image {
+    max-width: 360px;
+    max-height: 420px;
+}
+
+.product-image img {
+    display: block;
+    max-width: 100%;
+    object-fit: cover;
+}
