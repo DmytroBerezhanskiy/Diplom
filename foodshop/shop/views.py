@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
@@ -49,6 +50,7 @@ def product_detail(request, id, slug):
     product = Product.objects.get(id=id, slug=slug)
     orderlist_form = OrderListAddProductForm()
     reviews = product.reviews.filter(show=True)
+    rating = reviews.aggregate(Avg('rating'))
     new_review = None
     if request.method == "POST":
         reviews_form = ReviewsForm(request.POST)
@@ -67,6 +69,7 @@ def product_detail(request, id, slug):
     return render(request, 'shop/product_detail.html',
                   {'product': product,
                    'orderlist_form': orderlist_form,
+                   'rating': rating,
                    'reviews': reviews,
                    'new_review': new_review,
                    'reviews_form': reviews_form})

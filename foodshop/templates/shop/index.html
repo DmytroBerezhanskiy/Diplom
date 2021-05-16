@@ -44,6 +44,8 @@
               <p class="card-text">{{product.category|safe | truncatewords:10 }}</p>
               <p class="card-text"><a href="{{ product.get_shop_slug }}">
                   {{product.shop|safe | truncatewords:10 }}</a></p>
+              <p class="card-text">{% if product.get_rating.rating__avg %}
+                  Rated at {{ product.get_rating.rating__avg }}/5.0{% else %}Not yet rated{% endif %}</p>
               {% if product.available %}
               <div class="d-flex justify-content-between">
               <a href="{{ product.get_absolute_url }}" style="width:50%; margin-right: 5px" class="btn btn-outline-primary">Read More</a>

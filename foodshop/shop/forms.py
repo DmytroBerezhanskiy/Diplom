@@ -5,7 +5,8 @@ from .models import Reviews
 class ReviewsForm(forms.ModelForm):
     class Meta:
         model = Reviews
-        fields = ['body']
+        fields = ['rating', 'body']
         labels = {
-            'body': "Your review"
+            'body': "Your review",
+            'rating': "Your rating",
         }

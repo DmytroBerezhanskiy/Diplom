@@ -1,7 +1,17 @@
 from django.conf import settings
 from django.db import models
+from django.db.models import Avg
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+
+
+RATING_CHOICES = [
+    (1, "1 - Very bad"),
+    (2, "2 - Bad"),
+    (3, "3 - Okay"),
+    (4, "4 - Great"),
+    (5, "5 - Excellent"),
+]
 
 
 class Shop(models.Model):
@@ -92,6 +102,11 @@ class Product(models.Model):
         return reverse('product_list_by_shop',
                        args=[shop])
 
+    def get_rating(self):
+        product = Product.objects.get(id=self.id, slug=self.slug)
+        rating = product.reviews.filter(show=True).aggregate(Avg('rating'))
+        return rating
+
     def __str__(self):
         return self.name
 
@@ -99,6 +114,7 @@ class Product(models.Model):
 class Reviews(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    rating = models.PositiveSmallIntegerField(choices=RATING_CHOICES, null=True, blank=True)
     body = models.TextField()
     show = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)

@@ -5,7 +5,8 @@ from courier.models import CouriersReview
 class CouriersReviewForm(forms.ModelForm):
     class Meta:
         model = CouriersReview
-        fields = ['body']
+        fields = ['rating', 'body']
         labels = {
-            'body': "Your review"
+            'body': "Your review",
+            'rating': "Your rating",
         }
