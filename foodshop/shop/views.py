@@ -25,12 +25,17 @@ def product_list(request, shop_slug=None, category_slug=None):
     category = None
     categories = Category.objects.all()
     products = Product.objects.available()
+    products_non = Product.objects.non_available()
     if shop_slug:
         shop = Shop.objects.get(slug=shop_slug)
         products = products.filter(shop=shop)
+        products_non = products_non.filter(shop=shop)
     if category_slug:
         category = Category.objects.get(slug=category_slug)
         products = products.filter(category=category)
+        products_non = products_non.filter(category=category)
+    products = products | products_non
+    products = products.order_by('-available', '-created')
     return render(request, 'shop/index.html',
                   {'product_list': products,
                    'category': category,

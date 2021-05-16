@@ -43,6 +43,9 @@ class ProductQuerySet(models.query.QuerySet):
     def available(self):
         return self.filter(available=True)
 
+    def non_available(self):
+        return self.filter(available=False)
+
 
 class ProductManager(models.Manager):
 
@@ -51,6 +54,9 @@ class ProductManager(models.Manager):
 
     def available(self):
         return self.get_query_set().available()
+
+    def non_available(self):
+        return self.get_query_set().non_available()
 
 
 class Product(models.Model):
@@ -72,7 +78,7 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('-created',)
         index_together = (('id', 'slug'),)
         default_related_name = "products"
 
