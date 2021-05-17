@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
 from foodshop.settings import LOGIN_URL
 from .forms import ReviewsForm
-from .models import Product, Category, Shop, Reviews
+from .models import Product, Category, Shop, Reviews, ReviewsAnswer
 from orderlist.forms import OrderListAddProductForm
 
 
@@ -50,6 +50,7 @@ def product_detail(request, id, slug):
     product = Product.objects.get(id=id, slug=slug)
     orderlist_form = OrderListAddProductForm()
     reviews = product.reviews.filter(show=True)
+    answers = ReviewsAnswer.objects.filter(review__in=reviews)
     new_review = None
     if request.method == "POST":
         reviews_form = ReviewsForm(request.POST)
@@ -69,5 +70,6 @@ def product_detail(request, id, slug):
                   {'product': product,
                    'orderlist_form': orderlist_form,
                    'reviews': reviews,
+                   'answers': answers,
                    'new_review': new_review,
                    'reviews_form': reviews_form})

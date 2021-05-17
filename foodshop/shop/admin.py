@@ -1,10 +1,22 @@
 from django.contrib import admin
-from .models import Category, Product, Shop, Reviews
+from .models import Category, Product, Shop, Reviews, ReviewsAnswer
 
 
 class ReviewsInline(admin.TabularInline):
     model = Reviews
     ordering = ('-created',)
+
+
+@admin.register(Reviews)
+class ReviewsAdminModel(admin.ModelAdmin):
+    list_display = ('id', 'product', 'rating', 'created', 'show')
+    ordering = ('created',)
+
+
+@admin.register(ReviewsAnswer)
+class ReviewsAnswerAdminModel(admin.ModelAdmin):
+    list_display = ('review', 'author', 'body', 'created')
+    ordering = ('review',)
 
 
 @admin.register(Shop)

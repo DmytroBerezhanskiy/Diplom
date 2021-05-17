@@ -123,3 +123,21 @@ class Reviews(models.Model):
 
     class Meta:
         ordering = ('created',)
+        verbose_name = "Review"
+        verbose_name_plural = "Reviews"
+
+    def __str__(self):
+        return "Review №{} for {}".format(self.id, self.product)
+
+
+class ReviewsAnswer(models.Model):
+    review = models.ForeignKey(Reviews, on_delete=models.CASCADE, related_name='answers')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default='admin')
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return "Answer on {}".format(self.review)
