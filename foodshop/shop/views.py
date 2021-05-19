@@ -38,8 +38,16 @@ def product_list(request, shop_slug=None, category_slug=None):
         products_non = products_non.filter(category=category)
     products = products | products_non
     products = products.order_by('-available', '-created')
+    paginator = Paginator(products, 1)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
     return render(request, 'shop/index.html',
-                  {'product_list': products,
+                  {'product_list': objects,
                    'category': category,
                    'categories': categories,
                    'shop': shop,
