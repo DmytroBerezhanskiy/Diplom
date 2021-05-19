@@ -3,6 +3,7 @@ from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from foodshop.settings import LOGIN_URL
 from .forms import ReviewsForm
 from .models import Product, Category, Shop, Reviews, ReviewsAnswer
@@ -51,6 +52,14 @@ def product_detail(request, id, slug):
     orderlist_form = OrderListAddProductForm()
     reviews = product.reviews.filter(show=True)
     answers = ReviewsAnswer.objects.filter(review__in=reviews)
+    paginator = Paginator(reviews, 5)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
     new_review = None
     if request.method == "POST":
         reviews_form = ReviewsForm(request.POST)
@@ -69,7 +78,7 @@ def product_detail(request, id, slug):
     return render(request, 'shop/product_detail.html',
                   {'product': product,
                    'orderlist_form': orderlist_form,
-                   'reviews': reviews,
+                   'reviews': objects,
                    'answers': answers,
                    'new_review': new_review,
                    'reviews_form': reviews_form})

@@ -109,6 +109,11 @@ class Product(models.Model):
         rating = product.reviews.filter(show=True).aggregate(Avg('rating'))
         return rating
 
+    def get_rating_votes(self):
+        product = Product.objects.get(id=self.id, slug=self.slug)
+        count = product.reviews.filter(show=True).count()
+        return count
+
     def __str__(self):
         return self.name
 

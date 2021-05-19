@@ -12,7 +12,8 @@
     <img src="{{ product.image.url }}">
     <h1>{{ product.name }}</h1>
     <h2>{{ product.category }}</h2>
-    {% if product.get_rating.rating__avg %}<h2>Rated at {{ product.get_rating.rating__avg }}/5.0</h2>{% else %}
+    {% if product.get_rating.rating__avg %}<h2>Rated at {{ product.get_rating.rating__avg }}/5.0
+                                                        ({{ product.get_rating_votes }})</h2>{% else %}
         <h2>Not yet rated</h2>{% endif %}
     <h2><a href="{{ product.get_shop_slug }}">{{ product.shop }}</a></h2>
     <p class="price">₴{{ product.price }}</p>
@@ -66,4 +67,8 @@
         {% endif %}
     </div>
 </div>
+
+    {% include 'pagination/pagination.html' with page=reviews %}
+
+
 {% endblock %}
