@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin.models import LogEntry
 from .models import Category, Product, Shop, Reviews, ReviewsAnswer
 
 
@@ -43,4 +44,18 @@ class ProductAdminModel(admin.ModelAdmin):
     inlines = [ReviewsInline]
 
 
+@admin.register(LogEntry)
+class LogAdminModel(admin.ModelAdmin):
+    list_display = ('action_time', 'user', 'content_type', 'change_message', 'is_addition', 'is_change', 'is_deletion')
+    list_filter = ['action_time', 'user', 'content_type']
+    ordering = ('-action_time',)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
