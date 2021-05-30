@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.contrib.admin import RelatedFieldListFilter
 from django.contrib.admin.models import LogEntry
 from .models import Category, Product, Shop, Reviews, ReviewsAnswer
+from django.contrib.auth.models import User
 
 
 class ReviewsInline(admin.TabularInline):
@@ -44,10 +46,28 @@ class ProductAdminModel(admin.ModelAdmin):
     inlines = [ReviewsInline]
 
 
+class SuperUserFilter(admin.SimpleListFilter):
+    title = 'user'
+    parameter_name = 'user'
+
+    def lookups(self, request, model_admin):
+        superusers = []
+        qs = User.objects.filter(is_superuser=True)
+        for superuser in qs:
+            superusers.append([superuser.id, superuser.username])
+        return superusers
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(user__id__exact=self.value())
+        else:
+            return queryset
+
+
 @admin.register(LogEntry)
 class LogAdminModel(admin.ModelAdmin):
     list_display = ('action_time', 'user', 'content_type', 'change_message', 'is_addition', 'is_change', 'is_deletion')
-    list_filter = ['action_time', 'user', 'content_type']
+    list_filter = ['action_time', SuperUserFilter, 'content_type']
     ordering = ('-action_time',)
 
     def has_add_permission(self, request):
@@ -58,4 +78,3 @@ class LogAdminModel(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
-
