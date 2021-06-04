@@ -34,7 +34,7 @@
 {% if product_list %}
 <div class="row" style="margin-right: 5px">
       {% for product in product_list %}
-        <div class="post-item  col-12 col-sm-6 col-md-6 col-lg-3 p-2">
+        <div class="post-item col-12 col-sm-6 col-md-6 col-lg-3 p-2">
           <div class="card h-100 card-product align-items-center {% if not product.available %} gray-bg {% endif %}">
             <div class="card-body card-flex">
               <div class="product-image mb-2">
@@ -67,7 +67,9 @@
         </div>
       {% endfor %}
     </div>
+    {% if product_list %}
     {% include 'pagination/pagination.html' with page=product_list %}
+    {% endif %}
     </div>
 {% else %}
 <p style="font-style:oblique; font-size: 400%">Sorry, there are no products in this collection.</p>

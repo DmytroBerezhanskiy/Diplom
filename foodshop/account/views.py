@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
@@ -102,7 +103,15 @@ def deleteProduct(request, id, slug):
 def myProducts(request):
     shop = Shop.objects.get(owner=request.user)
     products = Product.objects.filter(shop=shop)
-    context = {"products": products}
+    paginator = Paginator(products, 8)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    context = {"products": objects}
     return render(request, 'registration/CRUD/my_products.html', context)
 
 

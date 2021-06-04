@@ -38,7 +38,7 @@ def product_list(request, shop_slug=None, category_slug=None):
         products_non = products_non.filter(category=category)
     products = products | products_non
     products = products.order_by('-available', '-created')
-    paginator = Paginator(products, 1)
+    paginator = Paginator(products, 12)
     page = request.GET.get('page')
     try:
         objects = paginator.page(page)

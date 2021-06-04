@@ -76,7 +76,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(max_length=150, db_index=True)
-    image = models.ImageField(upload_to='image_products/%Y/%d/%m', default='image_products/no_img.png')
+    image = models.ImageField(upload_to='image_products/%Y/%m/%d', default='image_products/no_img.png')
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)

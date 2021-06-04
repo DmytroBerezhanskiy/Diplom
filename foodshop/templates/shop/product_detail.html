@@ -67,5 +67,7 @@
         {% endif %}
     </div>
 </div>
+    {% if reviews %}
     {% include 'pagination/pagination.html' with page=reviews %}
+    {% endif %}
 {% endblock %}
