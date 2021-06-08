@@ -21,6 +21,10 @@ class ReviewsAnswerAdminModel(admin.ModelAdmin):
     list_display = ('review', 'author', 'body', 'created')
     ordering = ('review',)
 
+    def save_model(self, request, obj, form, change):
+        obj.author = request.user
+        super().save_model(request, obj, form, change)
+
 
 @admin.register(Shop)
 class ShopAdminModel(admin.ModelAdmin):
