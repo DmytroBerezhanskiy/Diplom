@@ -28,7 +28,7 @@ class ReviewsAnswerAdminModel(admin.ModelAdmin):
 
 @admin.register(Shop)
 class ShopAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'slug', "owner")
+    list_display = ('name', 'slug', 'owner')
     prepopulated_fields = {'slug': ('name',)}
     ordering = ('name',)
 

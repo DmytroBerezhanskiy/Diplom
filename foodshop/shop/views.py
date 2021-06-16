@@ -8,6 +8,7 @@ from foodshop.settings import LOGIN_URL
 from .forms import ReviewsForm
 from .models import Product, Category, Shop, Reviews, ReviewsAnswer
 from orderlist.forms import OrderListAddProductForm
+from .filters import ProductFilter
 
 
 # class ProductListView(ListView):
@@ -38,7 +39,9 @@ def product_list(request, shop_slug=None, category_slug=None):
         products_non = products_non.filter(category=category)
     products = products | products_non
     products = products.order_by('-available', '-created')
-    paginator = Paginator(products, 12)
+    myFilter = ProductFilter(request.GET, queryset=products)
+    products = myFilter.qs
+    paginator = Paginator(products, 8)
     page = request.GET.get('page')
     try:
         objects = paginator.page(page)
@@ -52,7 +55,8 @@ def product_list(request, shop_slug=None, category_slug=None):
                    'categories': categories,
                    'shop': shop,
                    'shops': shops,
-                   "form": orderlist_form})
+                   "form": orderlist_form,
+                   'myFilter': myFilter})
 
 
 def product_detail(request, id, slug):

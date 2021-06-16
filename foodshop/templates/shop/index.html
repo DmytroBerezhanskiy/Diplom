@@ -11,12 +11,18 @@
         <div class="splide__track">
             <ul class="splide__list">
                 {% for c in categories %}
-                <li class="splide__slide"><a href="{% url 'product_category' c.slug %}">{{ c.name }}</a></li>
+                <li class="splide__slide"><a href="{{ request.path }}?category={{ c.id }}">{{ c.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 {% endif %}
+
+<form method="get">
+    {{ myFilter.form.as_p }}
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
 <div id="sidebar">
         <h3>Restaurants</h3>
         <ul>
