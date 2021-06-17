@@ -18,37 +18,31 @@
         </div>
     </div>
 {% endif %}
-
-{#<form method="get">#}
-{#    {{ myFilter.form.as_p }}#}
-{#    <button class="btn btn-primary" type="submit">Search</button>#}
-{#</form>#}
-
 <form method="get">
     {{ myFilter.form.non_field_errors }}
-    <div>
-        {{ myFilter.form.name.errors }}
-        <label for="{{ myFilter.form.name.id_for_label }}">Search:</label>
-        {{ myFilter.form.name }}
+    <div class="d-flex flex-row-reverse justify-content-between align-items-center mx-4">
+        <div class="d-flex">
+            {{ myFilter.form.price_start.errors }}
+            {{ myFilter.form.price_end.errors }}
+            <div class="filter-input d-flex align-items-center filter-price search-input-price">
+                <label for="{{ myFilter.form.price_start.id_for_label }}">Price Range:</label>
+                {{ myFilter.form.price_start }} {{ myFilter.form.price_end }}
+            </div>
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+        <div class="d-flex align-items-center">
+            {{ myFilter.form.name.errors }}
+            <label for="{{ myFilter.form.name.id_for_label }}">Search:</label>
+            <div class="filter-input search-input">{{ myFilter.form.name }}</div>
+            <button class="btn btn-outline-primary ml-2" type="submit">Search</button>
+        </div>
+        <div>
+            {{ myFilter.form.ordering.errors }}
+            <label for="{{ myFilter.form.ordering.id_for_label }}">Ordering:</label>
+            {{ myFilter.form.ordering }}
+        </div>
     </div>
-    <div>
-        {{ myFilter.form.price_start.errors }}
-        <label for="{{ myFilter.form.price_start.id_for_label }}">Price is greater than or equal to:</label>
-        {{ myFilter.form.price_start }}
-    </div>
-    <div>
-        {{ myFilter.form.price_end.errors }}
-        <label for="{{ myFilter.form.price_end.id_for_label }}">Price is less than or equal to:</label>
-        {{ myFilter.form.price_end }}
-    </div>
-    <p><div>
-        {{ myFilter.form.ordering.errors }}
-        <label for="{{ myFilter.form.ordering.id_for_label }}">Ordering by:</label>
-        {{ myFilter.form.ordering }}
-    </div></p>
-    <button class="btn btn-primary" type="submit">Search</button>
 </form>
-
 <div id="sidebar">
         <h3>Restaurants</h3>
         <ul>

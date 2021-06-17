@@ -41,7 +41,7 @@ def product_list(request, shop_slug=None, category_slug=None):
     products = products.order_by('-available', '-created')
     myFilter = ProductFilter(request.GET, queryset=products)
     products = myFilter.qs
-    paginator = Paginator(products, 8)
+    paginator = Paginator(products, 12)
     page = request.GET.get('page')
     try:
         objects = paginator.page(page)
