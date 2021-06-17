@@ -10,6 +10,7 @@
 <div class="splide mb-3">
         <div class="splide__track">
             <ul class="splide__list">
+                <li class="splide__slide"><a href="{{ request.path }}">All</a></li>
                 {% for c in categories %}
                 <li class="splide__slide"><a href="{{ request.path }}?category={{ c.id }}">{{ c.name }}</a></li>
                 {% endfor %}
@@ -18,8 +19,33 @@
     </div>
 {% endif %}
 
+{#<form method="get">#}
+{#    {{ myFilter.form.as_p }}#}
+{#    <button class="btn btn-primary" type="submit">Search</button>#}
+{#</form>#}
+
 <form method="get">
-    {{ myFilter.form.as_p }}
+    {{ myFilter.form.non_field_errors }}
+    <div>
+        {{ myFilter.form.name.errors }}
+        <label for="{{ myFilter.form.name.id_for_label }}">Search:</label>
+        {{ myFilter.form.name }}
+    </div>
+    <div>
+        {{ myFilter.form.price_start.errors }}
+        <label for="{{ myFilter.form.price_start.id_for_label }}">Price is greater than or equal to:</label>
+        {{ myFilter.form.price_start }}
+    </div>
+    <div>
+        {{ myFilter.form.price_end.errors }}
+        <label for="{{ myFilter.form.price_end.id_for_label }}">Price is less than or equal to:</label>
+        {{ myFilter.form.price_end }}
+    </div>
+    <p><div>
+        {{ myFilter.form.ordering.errors }}
+        <label for="{{ myFilter.form.ordering.id_for_label }}">Ordering by:</label>
+        {{ myFilter.form.ordering }}
+    </div></p>
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
 
